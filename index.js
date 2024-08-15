@@ -17,7 +17,7 @@ const navItems = [
   ["/math", "Games"],
   ["/physics", "Apps"],
   ["/settings", "Settings"],
-  ["/vizion", "vizion.html"], // This line is new
+  ["/vizion", "vizion"], // This line is new
 ];
 
 const bare = createBareServer("/bare/");
