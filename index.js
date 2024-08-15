@@ -9,7 +9,7 @@ const routes = [
   ["/math", "games"],
   ["/physics", "apps"],
   ["/settings", "settings"],
-  ["/ltmeat", "ltmeat"], // This line is new
+  ["/vizion", "vizion.html"], // This line is new
 ];
 
 const navItems = [
@@ -17,7 +17,7 @@ const navItems = [
   ["/math", "Games"],
   ["/physics", "Apps"],
   ["/settings", "Settings"],
-  ["/ltmeat", "Ltmeat"], // This line is new
+  ["/vizion", "vizion.html"], // This line is new
 ];
 
 const bare = createBareServer("/bare/");
