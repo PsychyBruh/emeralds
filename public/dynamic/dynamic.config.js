@@ -1,7 +1,7 @@
-// See documentation for more information 
+// See documentation for more information
 
 self.__dynamic$config = {
-  prefix: "/shuttle-dn/",
+  prefix: "/emerald-dn/",
   encoding: "xor",
   mode: "production",
   logLevel: 0,
@@ -22,9 +22,7 @@ self.__dynamic$config = {
       worker: "dynamic.worker.js",
       config: "dynamic.config.js",
       inject: null,
-    }
+    },
   },
-  block: [
-
-  ]
+  block: [],
 };
