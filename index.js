@@ -9,7 +9,7 @@ const routes = [
   ["/math", "games"],
   ["/physics", "apps"],
   ["/settings", "settings"],
-  ["/vizion", "vizion.html"], // This line is new
+  ["/vizion", "vizion"], // This line is new
 ];
 
 const navItems = [
