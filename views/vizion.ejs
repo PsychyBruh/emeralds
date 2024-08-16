@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vizion</title>
+    <title>Open HTML</title>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var url = '<%= path %>'; // Use EJS to insert the path dynamically
+            // Specify the URL of the HTML file you want to open
+            var url = 'vizion.html'; // Change this to the path of the HTML file you want to open
+            
+            // Open the URL in a new tab
             var newTab = window.open(url, '_blank');
             if (newTab) {
                 newTab.focus();
