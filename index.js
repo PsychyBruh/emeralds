@@ -5,36 +5,38 @@ import { dynamicPath } from "@nebula-services/dynamic";
 import express from "express";
 
 const routes = [
-	["/", "index"],
-	["/math", "games"],
-	["/physics", "apps"],
-	["/settings", "settings"]
-    ["/vizion", "vizion"],
+  ["/", "index"],
+  ["/math", "games"],
+  ["/physics", "apps"],
+  ["/settings", "settings"],
+  ["/vizion", "vizion"], // This line is new
 ];
 
 const navItems = [
-	["/", "Home"],
-	["/math", "Games"],
-	["/physics", "Apps"],
-	["/settings", "Settings"]
-	["/vizion", "Vizion"],
+  ["/", "Home"],
+  ["/math", "Games"],
+  ["/physics", "Apps"],
+  ["/settings", "Settings"],
+  ["/vizion", "vizion"], // This line is new
 ];
 
 const bare = createBareServer("/bare/");
 const app = express();
 
-app.set("view engine", "ejs")
+app.set("view engine", "ejs");
 
 app.use(express.static("./public"));
 app.use("/uv/", express.static(uvPath));
-app.use("/dynamic/", express.static(dynamicPath))
+app.use("/dynamic/", express.static(dynamicPath));
 
 for (const [path, page] of routes) {
-	app.get(path, (_, res) => res.render("layout", {
-		path,
-		navItems,
-		page
-	}));
+  app.get(path, (_, res) =>
+    res.render("layout", {
+      path,
+      navItems,
+      page,
+    }),
+  );
 }
 
 app.use((_, res) => res.status(404).render("404"));
@@ -42,17 +44,17 @@ app.use((_, res) => res.status(404).render("404"));
 const httpServer = createServer();
 
 httpServer.on("request", (req, res) => {
-	if (bare.shouldRoute(req)) bare.routeRequest(req, res);
-	else app(req, res);
+  if (bare.shouldRoute(req)) bare.routeRequest(req, res);
+  else app(req, res);
 });
 
 httpServer.on("error", (err) => console.log(err));
 httpServer.on("upgrade", (req, socket, head) => {
-	if (bare.shouldRoute(req)) bare.routeUpgrade(req, socket, head);
-	else socket.end();
+  if (bare.shouldRoute(req)) bare.routeUpgrade(req, socket, head);
+  else socket.end();
 });
 
 httpServer.listen({ port: process.env.PORT || 8080 }, () => {
-	const addr = httpServer.address();
-	console.log(`\x1b[42m\x1b[1m shuttle\n Port: ${addr.port}\x1b[0m`);
+  const addr = httpServer.address();
+  console.log(`\x1b[42m\x1b[1m emerald\n Port: ${addr.port}\x1b[0m`);
 });
