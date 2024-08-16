@@ -9,7 +9,7 @@ const routes = [
   ["/math", "games"],
   ["/physics", "apps"],
   ["/settings", "settings"],
-  ["/vizion", "vizion"], // This line is new
+  ["/vizion", "vizion"], // Route for vizion.ejs
 ];
 
 const navItems = [
@@ -17,28 +17,30 @@ const navItems = [
   ["/math", "Games"],
   ["/physics", "Apps"],
   ["/settings", "Settings"],
-  ["/vizion", "vizion"], // This line is new
+  ["/vizion", "Vizion"], // Nav item for vizion.ejs
 ];
 
 const bare = createBareServer("/bare/");
 const app = express();
 
 app.set("view engine", "ejs");
+app.set("views", "./views"); // Ensure this matches your views directory
 
 app.use(express.static("./public"));
 app.use("/uv/", express.static(uvPath));
 app.use("/dynamic/", express.static(dynamicPath));
 
+// Define routes
 for (const [path, page] of routes) {
   app.get(path, (_, res) =>
-    res.render("layout", {
+    res.render(page, {
       path,
       navItems,
-      page,
-    }),
+    })
   );
 }
 
+// Handle 404 errors
 app.use((_, res) => res.status(404).render("404"));
 
 const httpServer = createServer();
