@@ -2,10 +2,10 @@ import express from 'express';
 import session from 'express-session';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import { createServer } from 'node:http';
-import { createBareServer } from "@tomphttp/bare-server-node";
-import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
-import { dynamicPath } from "@nebula-services/dynamic";
+import { createServer } from 'http';  // Use 'http' instead of 'node:http'
+import { createBareServer } from '@tomphttp/bare-server-node';
+import { uvPath } from '@titaniumnetwork-dev/ultraviolet';
+import { dynamicPath } from '@nebula-services/dynamic';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -15,6 +15,10 @@ const app = express();
 // Track online IPs
 const onlineIps = new Set();
 
+// Create Bare Server instance
+const bare = createBareServer("/bare/");
+
+// Middleware setup
 app.set("view engine", "ejs");
 app.set("views", join(__dirname, 'views')); // Ensure views directory is set
 
