@@ -1,121 +1,130 @@
 import express from 'express';
 import session from 'express-session';
-import path from 'path';
-import fs from 'fs';
 import { fileURLToPath } from 'url';
-import bodyParser from 'body-parser'; // To parse form data
+import { dirname, join } from 'path';
+import { createServer } from 'http';  // Use 'http' instead of 'node:http'
+import { createBareServer } from '@tomphttp/bare-server-node';
+import { uvPath } from '@titaniumnetwork-dev/ultraviolet';
+import { dynamicPath } from '@nebula-services/dynamic';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = dirname(__filename);
 
 const app = express();
-const port = process.env.PORT || 8080;
 
-// Middleware to parse URL-encoded bodies
-app.use(bodyParser.urlencoded({ extended: true }));
+// Track online IPs
+const onlineIps = new Set();
+
+// Create Bare Server instance
+const bare = createBareServer("/bare/");
+
+// Middleware setup
+app.set("view engine", "ejs");
+app.set("views", join(__dirname, 'views')); // Ensure views directory is set
+
+app.use(express.static(join(__dirname, 'public'))); // Serve static files from 'public' directory
+app.use("/uv/", express.static(uvPath));
+app.use("/dynamic/", express.static(dynamicPath));
+
+// Middleware to parse form data
+app.use(express.urlencoded({ extended: true }));
 
 // Session management setup
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'Mike#123@yes!ok', // Use environment variable for better security
+  secret: process.env.SESSION_SECRET || 'your-secret-key',
   resave: false,
   saveUninitialized: true,
 }));
 
-// Serve static files from 'public' directory
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/assets', express.static(path.join(__dirname, 'assets'))); // Ensure correct path to assets
-
-// Set EJS as the templating engine
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views')); // Ensure views directory is set
-
-// Mock data for online and banned IPs
-const onlineIps = new Set();
-const bannedIps = new Set();
-
-// Middleware to add IP management data to the response locals
-app.use((req, res, next) => {
-  res.locals.onlineIps = Array.from(onlineIps);
-  res.locals.bannedIps = Array.from(bannedIps);
-  next();
-});
-
-// Routes
-app.get('/', (req, res) => {
-  res.render('index');
-});
-
-app.get('/admin', (req, res) => {
-  if (!req.session.loggedIn) {
-    res.redirect('/admin/login');
-  } else {
-    res.render('admin', { page: 'home' });
-  }
-});
-
-app.get('/admin/home', (req, res) => {
-  if (!req.session.loggedIn) {
-    res.redirect('/admin/login');
-  } else {
-    res.render('admin', { page: 'home' });
-  }
-});
-
-app.get('/admin/ban-ip', (req, res) => {
-  if (!req.session.loggedIn) {
-    res.redirect('/admin/login');
-  } else {
-    res.render('admin', { page: 'ban-ip' });
-  }
-});
-
-app.get('/admin/unban-ip', (req, res) => {
-  if (!req.session.loggedIn) {
-    res.redirect('/admin/login');
-  } else {
-    res.render('admin', { page: 'unban-ip' });
-  }
-});
-
+// Admin login route
 app.post('/admin/login', (req, res) => {
   const { username, password } = req.body;
-  // Dummy authentication check
-  if (username === 'psychy' && password === 'N!ght123@') {
+
+  // Basic authentication check (replace with your own logic)
+  if (username === 'admin' && password === 'password') { // Replace with secure authentication
     req.session.loggedIn = true;
     res.redirect('/admin');
   } else {
-    res.render('admin_login', { error: 'Invalid username or password' });
+    res.sendFile(join(__dirname, 'public', 'admin_login.html')); // Render admin_login.html
   }
 });
 
-app.get('/admin/logout', (req, res) => {
-  req.session.destroy(() => {
+// Admin login page
+app.get('/admin/login', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/admin');
+  } else {
+    res.sendFile(join(__dirname, 'public', 'admin_login.html')); // Serve admin_login.html
+  }
+});
+
+// Admin dashboard
+app.get('/admin', (req, res) => {
+  if (req.session.loggedIn) {
+    res.sendFile(join(__dirname, 'public', 'admin.html')); // Serve admin.html
+  } else {
     res.redirect('/admin/login');
+  }
+});
+
+// API to get online IPs
+app.get('/api/online-ips', (req, res) => {
+  res.json(Array.from(onlineIps));
+});
+
+// Define routes
+const routes = [
+  ["/", "index"],
+  ["/math", "games"],
+  ["/physics", "apps"],
+  ["/settings", "settings"],
+  ["/vizion", "vizion"], // New route added here
+  ["/admin", "admin"], // Admin route
+];
+
+const navItems = [
+  ["/", "Home"],
+  ["/math", "Games"],
+  ["/physics", "Apps"],
+  ["/settings", "Settings"],
+  ["/vizion", "Vizion"], // New navigation item
+  ["/admin", "Admin"], // Admin navigation item
+];
+
+for (const [path, page] of routes) {
+  app.get(path, (req, res) => {
+    res.render("layout", {
+      path,
+      navItems,
+      page,
+      loggedIn: req.session.loggedIn || false
+    });
   });
-});
+}
 
-app.post('/admin/ban-ip/:ip', (req, res) => {
-  const { ip } = req.params;
-  if (onlineIps.has(ip)) {
-    onlineIps.delete(ip);
-    bannedIps.add(ip);
+// Handle 404 errors
+app.use((_, res) => res.status(404).render("404"));
+
+// Create and configure HTTP server
+const httpServer = createServer((req, res) => {
+  if (bare.shouldRoute(req)) {
+    bare.routeRequest(req, res);
+  } else {
+    app(req, res);
   }
-  res.redirect('/admin/ban-ip');
 });
 
-app.post('/admin/unban-ip/:ip', (req, res) => {
-  const { ip } = req.params;
-  if (bannedIps.has(ip)) {
-    bannedIps.delete(ip);
+httpServer.on("error", (err) => console.error("Server error:", err));
+httpServer.on("upgrade", (req, socket, head) => {
+  if (bare.shouldRoute(req)) {
+    bare.routeUpgrade(req, socket, head);
+  } else {
+    socket.end();
   }
-  res.redirect('/admin/unban-ip');
 });
 
-// Error handling for unknown routes
-app.use((req, res) => {
-  res.status(404).render('404'); // Ensure you have a 404.ejs view
-});
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+// Start server
+httpServer.listen(process.env.PORT || 8080, () => {
+  const addr = httpServer.address();
+  console.log(`\x1b[42m\x1b[1m emerald\n Port: ${addr.port}\x1b[0m`);
 });
