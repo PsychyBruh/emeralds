@@ -4,41 +4,51 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="/assets/css/admin.css"> <!-- Corrected CSS file path -->
+  <link rel="stylesheet" href="/assets/css/admin.css">
+  <style>
+    /* Inline CSS styles for the admin panel */
+  </style>
 </head>
 <body>
   <div class="container">
     <h1>Admin Dashboard</h1>
-    <nav>
-      <ul>
-        <li><a href="/admin/home">Home</a></li>
-        <li><a href="/admin/ban-ip">Ban IP</a></li>
-        <li><a href="/admin/unban-ip">Unban IP</a></li>
-      </ul>
-    </nav>
-    <div class="content">
-      <% if (page === 'ban-ip') { %>
+    <div class="navbar">
+      <a href="/admin">Home</a>
+      <a href="/admin?section=ban-ip">Ban IP</a>
+      <a href="/admin?section=unban-ip">Unban IP</a>
+    </div>
+
+    <% if (page === 'ban-ip') { %>
+      <div class="section">
         <h2>Ban IPs</h2>
-        <ul>
+        <ul class="ip-list">
           <% onlineIps.forEach(ip => { %>
             <li>
-              <%= ip %> 
-              <button onclick="window.location.href='/admin/ban-ip/<%= ip %>'">BAN</button>
+              <%= ip %>
+              <form action="/admin/ban-ip" method="post" style="display:inline;">
+                <input type="hidden" name="ip" value="<%= ip %>">
+                <button type="submit" class="ban-button">BAN</button>
+              </form>
             </li>
           <% }); %>
         </ul>
-      <% } else if (page === 'unban-ip') { %>
+      </div>
+    <% } else if (page === 'unban-ip') { %>
+      <div class="section">
         <h2>Unban IPs</h2>
-        <ul>
+        <ul class="ip-list">
           <% bannedIps.forEach(ip => { %>
             <li>
               <%= ip %>
-              <button onclick="window.location.href='/admin/unban-ip/<%= ip %>'">UNBAN</button>
+              <form action="/admin/unban-ip" method="post" style="display:inline;">
+                <input type="hidden" name="ip" value="<%= ip %>">
+                <button type="submit" class="unban-button">UNBAN</button>
+              </form>
             </li>
           <% }); %>
         </ul>
-      <% } %>
-    </div>
+      </div>
+    <% } %>
   </div>
 </body>
 </html>

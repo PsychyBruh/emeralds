@@ -1,81 +1,98 @@
-/* /assets/css/admin.css */
-
+/* General body styling */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #f5f6f7;
+    color: #333;
   }
   
+  /* Container for main content */
   .container {
-    width: 80%;
-    margin: auto;
+    width: 85%;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
+  /* Header styling */
   h1 {
     text-align: center;
+    color: #333;
     margin-bottom: 20px;
   }
   
+  /* Navigation bar styling */
   .navbar {
     display: flex;
     justify-content: center;
+    gap: 15px;
     margin-bottom: 20px;
   }
   
   .navbar a {
-    margin: 0 15px;
-    padding: 10px 20px;
+    padding: 12px 25px;
     text-decoration: none;
-    color: #007bff;
-    border: 1px solid #007bff;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
+    color: #ffffff;
+    background-color: #007bff;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s;
   }
   
   .navbar a:hover {
-    background-color: #007bff;
-    color: #fff;
+    background-color: #0056b3;
+    transform: scale(1.05);
   }
   
+  /* Section styling */
   .section {
     padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background-color: #ffffff;
+    margin-bottom: 20px;
   }
   
   .section h2 {
+    color: #007bff;
     margin-top: 0;
+    font-size: 1.5em;
   }
   
+  /* List styling */
   .ip-list {
     list-style-type: none;
     padding: 0;
   }
   
   .ip-list li {
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #f9f9f9;
+  }
+  
+  .ip-list li:nth-child(odd) {
+    background-color: #ffffff;
   }
   
   .ip-list button {
     border: none;
-    padding: 5px 10px;
+    padding: 8px 15px;
     border-radius: 5px;
-    color: #fff;
+    color: #ffffff;
     cursor: pointer;
     font-size: 14px;
-    transition: background-color 0.3s;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
   }
   
   .ban-button {
@@ -84,6 +101,7 @@ body {
   
   .ban-button:hover {
     background-color: #c9302c;
+    transform: scale(1.05);
   }
   
   .unban-button {
@@ -92,5 +110,6 @@ body {
   
   .unban-button:hover {
     background-color: #31b0d5;
+    transform: scale(1.05);
   }
   
