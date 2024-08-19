@@ -1,48 +1,73 @@
-import { createBareServer } from "@tomphttp/bare-server-node";
-import { createServer } from "node:http";
-import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
-import { dynamicPath } from "@nebula-services/dynamic";
-import express from "express";
+import express from 'express';
+import session from 'express-session';
+import path from 'path';
+import fs from 'fs';
 
-const routes = [
-  ["/", "index"],
-  ["/math", "games"],
-  ["/physics", "apps"],
-  ["/settings", "settings"],
-  ["/vizion", "vizion"], // New route added here
-];
-
-const navItems = [
-  ["/", "Home"],
-  ["/math", "Games"],
-  ["/physics", "Apps"],
-  ["/settings", "Settings"],
-  ["/vizion", "Vizion"], // New navigation item
-];
-
-const bare = createBareServer("/bare/");
 const app = express();
 
-app.set("view engine", "ejs");
-app.set("views", "./views"); // Ensure views directory is set
+// Track online IPs
+const onlineIps = new Set();
 
-app.use(express.static("./public"));
-app.use("/uv/", express.static(uvPath));
-app.use("/dynamic/", express.static(dynamicPath));
+app.use(express.json()); // To parse JSON data
+app.use(express.urlencoded({ extended: true })); // To parse URL-encoded data
 
-// Define routes
-for (const [path, page] of routes) {
-  app.get(path, (_, res) =>
-    res.render("layout", {
-      path,
-      navItems,
-      page,
-    })
-  );
-}
+app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from 'public' directory
 
-// Handle 404 errors
-app.use((_, res) => res.status(404).render("404"));
+// Session management setup
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'your-secret-key', // Use environment variable for better security
+  resave: false,
+  saveUninitialized: true,
+}));
+
+// Middleware to manage online IPs
+app.use((req, res, next) => {
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  if (ip) {
+    onlineIps.add(ip);
+  }
+  req.on('end', () => {
+    onlineIps.delete(ip);
+  });
+  next();
+});
+
+// Middleware to protect admin routes
+const isAuthenticated = (req, res, next) => {
+  if (req.session.loggedIn) {
+    next();
+  } else {
+    res.redirect('/admin/login');
+  }
+};
+
+// Admin login page
+app.get('/admin/login', (_, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin_login.html'));
+});
+
+// Admin login handler
+app.post('/admin/login', (req, res) => {
+  const { username, password } = req.body;
+  if (username === 'psychy' && password === 'N!ght123@') { // Change these values
+    req.session.loggedIn = true;
+    res.redirect('/admin');
+  } else {
+    res.redirect('/admin/login?error=Invalid credentials');
+  }
+});
+
+// Admin panel access
+app.get('/admin', isAuthenticated, (_, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
+// API endpoint to get online IPs
+app.get('/api/online-ips', (req, res) => {
+  res.json(Array.from(onlineIps));
+});
+
+// Other routes and logic...
 
 // Create and configure HTTP server
 const httpServer = createServer((req, res) => {
@@ -53,17 +78,4 @@ const httpServer = createServer((req, res) => {
   }
 });
 
-httpServer.on("error", (err) => console.error("Server error:", err));
-httpServer.on("upgrade", (req, socket, head) => {
-  if (bare.shouldRoute(req)) {
-    bare.routeUpgrade(req, socket, head);
-  } else {
-    socket.end();
-  }
-});
-
-// Start server
-httpServer.listen(process.env.PORT || 8080, () => {
-  const addr = httpServer.address();
-  console.log(`\x1b[42m\x1b[1m emerald\n Port: ${addr.port}\x1b[0m`);
-});
+// Existing server setup code...

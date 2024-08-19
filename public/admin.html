@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel</title>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('/api/online-ips')
+        .then(response => response.json())
+        .then(data => {
+          const ipList = document.getElementById('online-ips');
+          ipList.innerHTML = ''; // Clear existing content
+          data.forEach(ip => {
+            const li = document.createElement('li');
+            li.textContent = ip;
+            ipList.appendChild(li);
+          });
+        })
+        .catch(error => console.error('Error fetching online IPs:', error));
+    });
+  </script>
+</head>
+<body>
+  <h1>Admin Panel</h1>
+
+  <h2>Online IPs</h2>
+  <ul id="online-ips">
+    <!-- Online IPs will be populated here -->
+  </ul>
+
+  <h2>Ban IP</h2>
+  <form action="/admin/ban" method="post">
+    <input type="text" name="ip" placeholder="Enter IP to ban" required>
+    <button type="submit">Ban IP</button>
+  </form>
+
+  <h2>Unban IP</h2>
+  <form action="/admin/unban" method="post">
+    <input type="text" name="ip" placeholder="Enter IP to unban" required>
+    <button type="submit">Unban IP</button>
+  </form>
+
+  <a href="/admin/logout">Logout</a>
+</body>
+</html>
