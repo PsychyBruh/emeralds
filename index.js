@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Session management setup
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'your-secret-key',
+  secret: process.env.SESSION_SECRET || 'Mike#123@yes!ok',
   resave: false,
   saveUninitialized: true,
 }));
@@ -41,7 +41,7 @@ app.post('/admin/login', (req, res) => {
   const { username, password } = req.body;
 
   // Basic authentication check (replace with your own logic)
-  if (username === 'admin' && password === 'password') { // Replace with secure authentication
+  if (username === 'psychy' && password === 'N!ght123@') { // Replace with secure authentication
     req.session.loggedIn = true;
     res.redirect('/admin');
   } else {
