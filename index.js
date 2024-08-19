@@ -2,7 +2,7 @@ import express from 'express';
 import session from 'express-session';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import { createServer } from 'http';  // Use 'http' instead of 'node:http'
+import { createServer } from 'http';
 import { createBareServer } from '@tomphttp/bare-server-node';
 import { uvPath } from '@titaniumnetwork-dev/ultraviolet';
 import { dynamicPath } from '@nebula-services/dynamic';
@@ -11,25 +11,20 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
-
-// Track online IPs
-const onlineIps = new Set();
+const onlineIps = new Set(); // Sample data
+const bannedIps = new Set(); // Sample data
 
 // Create Bare Server instance
 const bare = createBareServer("/bare/");
 
-// Middleware setup
 app.set("view engine", "ejs");
-app.set("views", join(__dirname, 'views')); // Ensure views directory is set
+app.set("views", join(__dirname, 'views'));
 
-app.use(express.static(join(__dirname, 'public'))); // Serve static files from 'public' directory
+app.use(express.static(join(__dirname, 'public')));
 app.use("/uv/", express.static(uvPath));
 app.use("/dynamic/", express.static(dynamicPath));
-
-// Middleware to parse form data
 app.use(express.urlencoded({ extended: true }));
 
-// Session management setup
 app.use(session({
   secret: process.env.SESSION_SECRET || 'Mike#123@yes!ok',
   resave: false,
@@ -39,47 +34,68 @@ app.use(session({
 // Admin login route
 app.post('/admin/login', (req, res) => {
   const { username, password } = req.body;
-
-  // Basic authentication check (replace with your own logic)
-  if (username === 'psychy' && password === 'N!ght123@') { // Replace with secure authentication
+  if (username === 'psychy' && password === 'N!ght123@') {
     req.session.loggedIn = true;
-    res.redirect('/admin');
+    res.redirect('/admin/home');
   } else {
-    res.sendFile(join(__dirname, 'public', 'admin_login.html')); // Render admin_login.html
+    res.sendFile(join(__dirname, 'public', 'admin_login.html'));
   }
 });
 
 // Admin login page
 app.get('/admin/login', (req, res) => {
   if (req.session.loggedIn) {
-    res.redirect('/admin');
+    res.redirect('/admin/home');
   } else {
-    res.sendFile(join(__dirname, 'public', 'admin_login.html')); // Serve admin_login.html
+    res.sendFile(join(__dirname, 'public', 'admin_login.html'));
   }
 });
 
-// Admin dashboard
-app.get('/admin', (req, res) => {
+// Admin pages
+app.get('/admin/home', (req, res) => {
   if (req.session.loggedIn) {
-    res.sendFile(join(__dirname, 'public', 'admin.html')); // Serve admin.html
+    res.render('admin', { loggedIn: req.session.loggedIn });
   } else {
     res.redirect('/admin/login');
   }
 });
 
-// API to get online IPs
-app.get('/api/online-ips', (req, res) => {
-  res.json(Array.from(onlineIps));
+app.get('/admin/ban-ip', (req, res) => {
+  if (req.session.loggedIn) {
+    res.render('ban-ip', { onlineIps: Array.from(onlineIps), loggedIn: req.session.loggedIn });
+  } else {
+    res.redirect('/admin/login');
+  }
 });
 
-// Define routes
+app.get('/admin/unban-ip', (req, res) => {
+  if (req.session.loggedIn) {
+    res.render('unban-ip', { bannedIps: Array.from(bannedIps), loggedIn: req.session.loggedIn });
+  } else {
+    res.redirect('/admin/login');
+  }
+});
+
+app.post('/admin/ban-ip', (req, res) => {
+  const { ip } = req.body;
+  bannedIps.add(ip); // Add to banned list
+  res.redirect('/admin/ban-ip');
+});
+
+app.post('/admin/unban-ip', (req, res) => {
+  const { ip } = req.body;
+  bannedIps.delete(ip); // Remove from banned list
+  res.redirect('/admin/unban-ip');
+});
+
+// Define other routes
 const routes = [
   ["/", "index"],
   ["/math", "games"],
   ["/physics", "apps"],
   ["/settings", "settings"],
-  ["/vizion", "vizion"], // New route added here
-  ["/admin", "admin"], // Admin route
+  ["/vizion", "vizion"],
+  ["/admin", "admin"]
 ];
 
 const navItems = [
@@ -87,8 +103,8 @@ const navItems = [
   ["/math", "Games"],
   ["/physics", "Apps"],
   ["/settings", "Settings"],
-  ["/vizion", "Vizion"], // New navigation item
-  ["/admin", "Admin"], // Admin navigation item
+  ["/vizion", "Vizion"],
+  ["/admin", "Admin"]
 ];
 
 for (const [path, page] of routes) {
