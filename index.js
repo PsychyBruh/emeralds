@@ -1,101 +1,15 @@
-import express from 'express';
-import session from 'express-session';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-import { createServer } from 'http';
-import { createBareServer } from '@tomphttp/bare-server-node';
-import { uvPath } from '@titaniumnetwork-dev/ultraviolet';
-import { dynamicPath } from '@nebula-services/dynamic';
+import { createBareServer } from "@tomphttp/bare-server-node";
+import { createServer } from "node:http";
+import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
+import { dynamicPath } from "@nebula-services/dynamic";
+import express from "express";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const app = express();
-const onlineIps = new Set(); // Sample data
-const bannedIps = new Set(); // Sample data
-
-// Create Bare Server instance
-const bare = createBareServer("/bare/");
-
-app.set("view engine", "ejs");
-app.set("views", join(__dirname, 'views'));
-
-app.use(express.static(join(__dirname, 'public')));
-app.use("/uv/", express.static(uvPath));
-app.use("/dynamic/", express.static(dynamicPath));
-app.use(express.urlencoded({ extended: true }));
-
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'Mike#123@yes!ok',
-  resave: false,
-  saveUninitialized: true,
-}));
-
-// Admin login route
-app.post('/admin/login', (req, res) => {
-  const { username, password } = req.body;
-  if (username === 'psychy' && password === 'N!ght123@') {
-    req.session.loggedIn = true;
-    res.redirect('/admin/home');
-  } else {
-    res.sendFile(join(__dirname, 'public', 'admin_login.html'));
-  }
-});
-
-// Admin login page
-app.get('/admin/login', (req, res) => {
-  if (req.session.loggedIn) {
-    res.redirect('/admin/home');
-  } else {
-    res.sendFile(join(__dirname, 'public', 'admin_login.html'));
-  }
-});
-
-// Admin pages
-app.get('/admin/home', (req, res) => {
-  if (req.session.loggedIn) {
-    res.render('admin', { loggedIn: req.session.loggedIn });
-  } else {
-    res.redirect('/admin/login');
-  }
-});
-
-app.get('/admin/ban-ip', (req, res) => {
-  if (req.session.loggedIn) {
-    res.render('ban-ip', { onlineIps: Array.from(onlineIps), loggedIn: req.session.loggedIn });
-  } else {
-    res.redirect('/admin/login');
-  }
-});
-
-app.get('/admin/unban-ip', (req, res) => {
-  if (req.session.loggedIn) {
-    res.render('unban-ip', { bannedIps: Array.from(bannedIps), loggedIn: req.session.loggedIn });
-  } else {
-    res.redirect('/admin/login');
-  }
-});
-
-app.post('/admin/ban-ip', (req, res) => {
-  const { ip } = req.body;
-  bannedIps.add(ip); // Add to banned list
-  res.redirect('/admin/ban-ip');
-});
-
-app.post('/admin/unban-ip', (req, res) => {
-  const { ip } = req.body;
-  bannedIps.delete(ip); // Remove from banned list
-  res.redirect('/admin/unban-ip');
-});
-
-// Define other routes
 const routes = [
   ["/", "index"],
   ["/math", "games"],
   ["/physics", "apps"],
   ["/settings", "settings"],
-  ["/vizion", "vizion"],
-  ["/admin", "admin"]
+  ["/vizion", "vizion"], // New route added here
 ];
 
 const navItems = [
@@ -103,19 +17,28 @@ const navItems = [
   ["/math", "Games"],
   ["/physics", "Apps"],
   ["/settings", "Settings"],
-  ["/vizion", "Vizion"],
-  ["/admin", "Admin"]
+  ["/vizion", "Vizion"], // New navigation item
 ];
 
+const bare = createBareServer("/bare/");
+const app = express();
+
+app.set("view engine", "ejs");
+app.set("views", "./views"); // Ensure views directory is set
+
+app.use(express.static("./public"));
+app.use("/uv/", express.static(uvPath));
+app.use("/dynamic/", express.static(dynamicPath));
+
+// Define routes
 for (const [path, page] of routes) {
-  app.get(path, (req, res) => {
+  app.get(path, (_, res) =>
     res.render("layout", {
       path,
       navItems,
       page,
-      loggedIn: req.session.loggedIn || false
-    });
-  });
+    })
+  );
 }
 
 // Handle 404 errors
