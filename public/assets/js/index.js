@@ -14,11 +14,11 @@ function fullscreen() {
 
 async function registerSW() {
 	await navigator.serviceWorker.register("/dynamic.sw-handler.js", {
-		scope: "/shuttle-dn",
+		scope: "/emerald-dn",
 	});
 	const workerURL = "/uv.sw-handler.js";
 	const worker = await navigator.serviceWorker.getRegistration(workerURL, {
-		scope: "/shuttle-uv",
+		scope: "/emerald-uv",
 	});
 	if (worker) return worker;
 	return navigator.serviceWorker.register(workerURL, { scope: __uv$config.prefix });
