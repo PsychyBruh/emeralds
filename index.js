@@ -7,10 +7,68 @@ import { createBareServer } from "@tomphttp/bare-server-node";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { dynamicPath } from "@nebula-services/dynamic";
 
-// Determine the directory name for this file
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+const app = express();
+
+// Track online IPs
+const onlineIps = new Set();
+
+app.set("view engine", "ejs");
+app.set("views", join(__dirname, 'views')); // Ensure views directory is set
+
+app.use(express.static(join(__dirname, 'public'))); // Serve static files from 'public' directory
+app.use("/uv/", express.static(uvPath));
+app.use("/dynamic/", express.static(dynamicPath));
+
+// Middleware to parse form data
+app.use(express.urlencoded({ extended: true }));
+
+// Session management setup
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'your-secret-key',
+  resave: false,
+  saveUninitialized: true,
+}));
+
+// Admin login route
+app.post('/admin/login', (req, res) => {
+  const { username, password } = req.body;
+
+  // Basic authentication check (replace with your own logic)
+  if (username === 'admin' && password === 'password') { // Replace with secure authentication
+    req.session.loggedIn = true;
+    res.redirect('/admin');
+  } else {
+    res.sendFile(join(__dirname, 'public', 'admin_login.html')); // Render admin_login.html
+  }
+});
+
+// Admin login page
+app.get('/admin/login', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/admin');
+  } else {
+    res.sendFile(join(__dirname, 'public', 'admin_login.html')); // Serve admin_login.html
+  }
+});
+
+// Admin dashboard
+app.get('/admin', (req, res) => {
+  if (req.session.loggedIn) {
+    res.sendFile(join(__dirname, 'public', 'admin.html')); // Serve admin.html
+  } else {
+    res.redirect('/admin/login');
+  }
+});
+
+// API to get online IPs
+app.get('/api/online-ips', (req, res) => {
+  res.json(Array.from(onlineIps));
+});
+
+// Define routes
 const routes = [
   ["/", "index"],
   ["/math", "games"],
@@ -29,74 +87,6 @@ const navItems = [
   ["/admin", "Admin"], // Admin navigation item
 ];
 
-const bare = createBareServer("/bare/");
-const app = express();
-
-// Track online IPs
-const onlineIps = new Set();
-
-app.set("view engine", "ejs");
-app.set("views", join(__dirname, 'views')); // Ensure views directory is set
-
-app.use(express.static(join(__dirname, 'public'))); // Serve static files from 'public' directory
-app.use("/uv/", express.static(uvPath));
-app.use("/dynamic/", express.static(dynamicPath));
-
-// Session management setup
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'your-secret-key',
-  resave: false,
-  saveUninitialized: true,
-}));
-
-// Middleware to check if the user is logged in
-function isLoggedIn(req, res, next) {
-  if (req.session.loggedIn) {
-    return next();
-  }
-  res.redirect('/admin/login');
-}
-
-// Admin login route
-app.post('/admin/login', (req, res) => {
-  const { username, password } = req.body;
-
-  // Basic authentication check (replace with your own logic)
-  if (username === 'admin' && password === 'password') { // Replace with secure authentication
-    req.session.loggedIn = true;
-    res.redirect('/admin');
-  } else {
-    res.redirect('/admin/login');
-  }
-});
-
-// Admin logout route
-app.get('/admin/logout', (req, res) => {
-  req.session.destroy(() => {
-    res.redirect('/admin/login');
-  });
-});
-
-// Admin login page
-app.get('/admin/login', (req, res) => {
-  if (req.session.loggedIn) {
-    res.redirect('/admin');
-  } else {
-    res.sendFile(join(__dirname, 'public', 'admin_login.html')); // Serve admin login HTML page
-  }
-});
-
-// Admin dashboard
-app.get('/admin', isLoggedIn, (req, res) => {
-  res.render('admin', { loggedIn: true }); // Render admin.ejs
-});
-
-// API to get online IPs
-app.get('/api/online-ips', (req, res) => {
-  res.json(Array.from(onlineIps));
-});
-
-// Define routes
 for (const [path, page] of routes) {
   app.get(path, (req, res) => {
     res.render("layout", {
