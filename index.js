@@ -1,29 +1,32 @@
 import express from 'express';
 import session from 'express-session';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import { createServer } from 'node:http';
 import { createBareServer } from "@tomphttp/bare-server-node";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { dynamicPath } from "@nebula-services/dynamic";
 
-// Define routes for pages
+// Utility to get the current directory name
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const routes = [
   ["/", "index"],
   ["/math", "games"],
   ["/physics", "apps"],
   ["/settings", "settings"],
-  ["/vizion", "vizion"], // Existing routes
-  ["/admin", "admin"] // Admin route
+  ["/vizion", "vizion"],
+  ["/admin", "admin"]
 ];
 
-// Define navigation items
 const navItems = [
   ["/", "Home"],
   ["/math", "Games"],
   ["/physics", "Apps"],
   ["/settings", "Settings"],
-  ["/vizion", "Vizion"], // Existing navigation items
-  ["/admin", "Admin"] // Added Admin navigation item
+  ["/vizion", "Vizion"],
+  ["/admin", "Admin"]
 ];
 
 const bare = createBareServer("/bare/");
@@ -32,23 +35,19 @@ const app = express();
 // Track online IPs
 const onlineIps = new Set();
 
-// Set up EJS as the view engine
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, 'views')); // Ensure views directory is set
+app.set("views", path.join(__dirname, 'views'));
 
-// Serve static files from 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 app.use("/uv/", express.static(uvPath));
 app.use("/dynamic/", express.static(dynamicPath));
 
-// Session management setup
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'your-secret-key', // Use environment variable for better security
+  secret: process.env.SESSION_SECRET || 'your-secret-key',
   resave: false,
   saveUninitialized: true,
 }));
 
-// Middleware to manage online IPs
 app.use((req, res, next) => {
   const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   if (ip) {
@@ -60,7 +59,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Route handling for dynamic routes
 for (const [routePath, page] of routes) {
   app.get(routePath, (_, res) =>
     res.render("layout", {
@@ -71,15 +69,13 @@ for (const [routePath, page] of routes) {
   );
 }
 
-// Admin login page
 app.get('/admin/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'admin_login.html')); // Ensure this file exists
+  res.sendFile(path.join(__dirname, 'public', 'admin_login.html'));
 });
 
-// Admin login handler
-app.post('/admin/login', (req, res) => {
+app.post('/admin/login', express.urlencoded({ extended: true }), (req, res) => {
   const { username, password } = req.body;
-  if (username === 'admin' && password === 'password') { // Change these values for security
+  if (username === 'admin' && password === 'password') {
     req.session.loggedIn = true;
     res.redirect('/admin');
   } else {
@@ -87,31 +83,26 @@ app.post('/admin/login', (req, res) => {
   }
 });
 
-// Admin panel access
 app.get('/admin', (req, res) => {
   if (req.session.loggedIn) {
-    res.sendFile(path.join(__dirname, 'public', 'admin.html')); // Ensure this file exists
+    res.sendFile(path.join(__dirname, 'public', 'admin.html'));
   } else {
     res.redirect('/admin/login');
   }
 });
 
-// Admin logout handler
 app.get('/admin/logout', (req, res) => {
   req.session.destroy(() => {
     res.redirect('/admin/login');
   });
 });
 
-// API endpoint to get online IPs
 app.get('/api/online-ips', (req, res) => {
   res.json(Array.from(onlineIps));
 });
 
-// Handle 404 errors
 app.use((_, res) => res.status(404).render("404"));
 
-// Create and configure HTTP server
 const httpServer = createServer((req, res) => {
   if (bare.shouldRoute(req)) {
     bare.routeRequest(req, res);
@@ -129,7 +120,6 @@ httpServer.on("upgrade", (req, socket, head) => {
   }
 });
 
-// Start the server
 httpServer.listen(process.env.PORT || 8080, () => {
   const addr = httpServer.address();
   console.log(`Server running on port ${addr.port}`);
