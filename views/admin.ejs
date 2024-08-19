@@ -1,50 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="/styles.css"> <!-- Adjust this path as needed -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Link to your CSS if needed -->
 </head>
 <body>
-  <header>
-    <h1>Admin Dashboard</h1>
-    <nav>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/math">Games</a></li>
-        <li><a href="/physics">Apps</a></li>
-        <li><a href="/settings">Settings</a></li>
-        <li><a href="/vizion">Vizion</a></li>
-        <li><a href="/admin">Admin</a></li>
-        <li><a href="/admin/logout">Logout</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-    <h2>Online IPs</h2>
-    <div id="online-ips">
-      <!-- This will be populated by the script -->
-    </div>
-    
-    <script>
-      async function fetchOnlineIps() {
-        try {
-          const response = await fetch('/api/online-ips');
-          const ips = await response.json();
-          const container = document.getElementById('online-ips');
-          container.innerHTML = ips.length ? 
-            `<ul>${ips.map(ip => `<li>${ip}</li>`).join('')}</ul>` :
-            '<p>No IPs currently online.</p>';
-        } catch (error) {
-          console.error('Error fetching online IPs:', error);
-        }
-      }
-
-      // Fetch online IPs when the page loads
-      document.addEventListener('DOMContentLoaded', fetchOnlineIps);
-    </script>
-  </main>
+    <% if (loggedIn) { %>
+        <header>
+            <h1>Admin Dashboard</h1>
+            <nav>
+                <a href="/admin">Home</a>
+                <a href="/admin/settings">Settings</a>
+                <a href="/admin/logout">Logout</a>
+            </nav>
+        </header>
+        <main>
+            <h2>Welcome, Admin!</h2>
+            <!-- You can include more admin dashboard content here -->
+            <div id="onlineIps">
+                <h3>Online IPs</h3>
+                <ul id="ipsList"></ul>
+            </div>
+        </main>
+        <script>
+            // Fetch online IPs
+            fetch('/api/online-ips')
+                .then(response => response.json())
+                .then(data => {
+                    const ipsList = document.getElementById('ipsList');
+                    ipsList.innerHTML = data.map(ip => `<li>${ip}</li>`).join('');
+                })
+                .catch(error => console.error('Error fetching online IPs:', error));
+        </script>
+    <% } else { %>
+        <script>
+            // Redirect to login page if not logged in
+            window.location.href = '/admin/login';
+        </script>
+    <% } %>
 </body>
 </html>
