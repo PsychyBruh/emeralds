@@ -1,10 +1,15 @@
 import express from 'express';
 import session from 'express-session';
-import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 import { createServer } from 'node:http';
 import { createBareServer } from "@tomphttp/bare-server-node";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { dynamicPath } from "@nebula-services/dynamic";
+
+// Determine the directory name for this file
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const routes = [
   ["/", "index"],
@@ -31,9 +36,9 @@ const app = express();
 const onlineIps = new Set();
 
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, 'views')); // Ensure views directory is set
+app.set("views", join(__dirname, 'views')); // Ensure views directory is set
 
-app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from 'public' directory
+app.use(express.static(join(__dirname, 'public'))); // Serve static files from 'public' directory
 app.use("/uv/", express.static(uvPath));
 app.use("/dynamic/", express.static(dynamicPath));
 
@@ -77,7 +82,7 @@ app.get('/admin/login', (req, res) => {
   if (req.session.loggedIn) {
     res.redirect('/admin');
   } else {
-    res.sendFile(path.join(__dirname, 'public', 'admin_login.html')); // Serve admin login HTML page
+    res.sendFile(join(__dirname, 'public', 'admin_login.html')); // Serve admin login HTML page
   }
 });
 
