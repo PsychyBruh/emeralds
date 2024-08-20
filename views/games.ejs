@@ -1,182 +1,165 @@
 <link href="/assets/css/games.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <div id="align">
-	<nav id="nav">
-		<a onclick="exit()">
-			<i class="fa-solid fa-xmark"
-				style="color: white; margin-right: auto; margin-left: 20px; font-size: 24px;cursor: pointer;"></i>
-		</a>
-		<span id="m" style="margin: auto;"></span>
-		<a onclick="fullscreen()">
-			<i class="fa-solid fa-expand"
-				style="color: white; margin-left: auto; margin-right: 45px; font-size: 20px;cursor: pointer;"></i>
-		</a>
-	</nav>
-	<iframe id="ifr"></iframe>
+    <nav id="nav">
+        <a onclick="exit()">
+            <i class="fa-solid fa-xmark" style="color: white; margin-right: auto; margin-left: 20px; font-size: 24px; cursor: pointer;"></i>
+        </a>
+        <span id="m" style="margin: auto;"></span>
+        <a onclick="fullscreen()">
+            <i class="fa-solid fa-expand" style="color: white; margin-left: auto; margin-right: 45px; font-size: 20px; cursor: pointer;"></i>
+        </a>
+    </nav>
+    <iframe id="ifr"></iframe>
 </div>
 <style>
-	.fl {
-		font-family: 'Poppins';
-		font-size: 1.2rem;
-		margin-left: 2rem;
-		margin-top: 0.7rem;
-		display: block;
-		transition: all 0.3s;
-		transform: translateY(0);
-	}
-	#urlInput {
-		font-family: 'Poppins';
-		font-size: 1.2rem;
-		color: #fafafa;
-		margin: auto;
-		width: 80%;
-		padding: 10px;
-		height: 100%;
-	}
-	.btn {
-		font-family: 'Poppins';
-		font-size: 15px;
-		font-weight: 500;
-		padding: 5px 10px;
-		background-color: #fafafa;
-		color: #424244;
-		border: none;
-		border-radius: 10px;
-		box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-		cursor: pointer;
-		transition: all 0.3s ease-in-out;
-	}
-	.btn:hover {
-		background-color: #e2e2e2;
-		color: #424244;
-	}
-	.btnContainer {
-		display: inline-block;
-		border: 1px solid #27272a;
-		background-color: transparent;
-		padding: 10px;
-		border-radius: 10px;
-		width: 400px;
-		transition: all 0.2s ease-in-out;
-	}
-	.btnContainer:hover {
-		background-color: #27272a;
-	}
-	.btnContainer h4 {
-		color: #fafafa;
-		text-align: left;
-		margin-top: 5px;
-		margin-bottom: 5px;
-		font-weight: 500;
-	}
-	.btnBox {
-		align-items: center;
-		display: flex;
-		gap: 25px;
-		flex-wrap: wrap;
-		align-content: center;
-		justify-content: center;
-		margin-bottom: 30px;
-	}
-	.gameDescription {
-		color: grey;
-		font-size: 12px;
-	}
-	::-webkit-scrollbar {
-		width: 10px;
-	}
-
-	::-webkit-scrollbar-track {
-		background: #09090b;
-		border-radius: 10px;
-	}
-
-	::-webkit-scrollbar-thumb {
-		background: #fafafa;
-		border-radius: 10px;
-	}
-
-	::-webkit-scrollbar-thumb:hover {
-		background: #acacac;
-	}
-	.tag {
-		background: linear-gradient(to right, #7e57c2, #039be5);
-		color: #fff;
-		font-size: 12px;
-		padding: 2px 6px;
-		border-radius: 5px;
-		position: relative;
-		top: -3px;
-		margin-left: 5px;
-	}
-	.hot {
-		background: linear-gradient(to right, #ff2525, #e57c03);
-		color: #fff;
-		font-size: 12px;
-		padding: 2px 6px;
-		border-radius: 5px;
-		position: relative;
-		top: -3px;
-		margin-left: 5px;
-	}
+    .fl {
+        font-family: 'Poppins';
+        font-size: 1.2rem;
+        margin-left: 2rem;
+        margin-top: 0.7rem;
+        display: block;
+        transition: all 0.3s;
+        transform: translateY(0);
+    }
+    #urlInput {
+        font-family: 'Poppins';
+        font-size: 1.2rem;
+        color: #fafafa;
+        margin: auto;
+        width: 80%;
+        padding: 10px;
+        height: 100%;
+    }
+    .btn {
+        font-family: 'Poppins';
+        font-size: 15px;
+        font-weight: 500;
+        padding: 5px 10px;
+        background-color: #fafafa;
+        color: #424244;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+    .btn:hover {
+        background-color: #e2e2e2;
+        color: #424244;
+    }
+    .btnContainer {
+        display: inline-block;
+        border: 1px solid #27272a;
+        background-color: transparent;
+        padding: 10px;
+        border-radius: 10px;
+        width: 400px;
+        transition: all 0.2s ease-in-out;
+    }
+    .btnContainer:hover {
+        background-color: #27272a;
+    }
+    .btnContainer h4 {
+        color: #fafafa;
+        text-align: left;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+    .btnBox {
+        align-items: center;
+        display: flex;
+        gap: 25px;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+    .gameDescription {
+        color: grey;
+        font-size: 12px;
+    }
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+        background: #09090b;
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #fafafa;
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #acacac;
+    }
+    .tag {
+        background: linear-gradient(to right, #7e57c2, #039be5);
+        color: #fff;
+        font-size: 12px;
+        padding: 2px 6px;
+        border-radius: 5px;
+        position: relative;
+        top: -3px;
+        margin-left: 5px;
+    }
+    .hot {
+        background: linear-gradient(to right, #ff2525, #e57c03);
+        color: #fff;
+        font-size: 12px;
+        padding: 2px 6px;
+        border-radius: 5px;
+        position: relative;
+        top: -3px;
+        margin-left: 5px;
+    }
 </style>
 <div class="games-body">
-	<div id="urlInput">
-		<br>
-		<br>
-		<br>
-	</div>
-	<div class="games-body">
-		<div id="urlInput">
-			<br>
-			<br>
-			<br>
-			<h2 style="color: #fafafa; font-size: 60px; text-align: center; margin-bottom: 0px;">Emerald Games</h2>
-			<h3 style="color: #909098; font-size: 15px; text-align: center; margin-top: 5px; font-weight: 300;">Please find below a curated selection of games available on Emerald:</h3>
-			<h3 style="padding-bottom: 20px;"></h3>
-			<div class="btnBox">
-				<h2 style="color: #fafafa; font-size: 40px; text-align: center; margin-bottom: 0px;">Vizion Enabled Games</h2>
-				<div class="btnContainer">
-					<h4>Roblox <span class="hot">Popular <i class="fa-solid fa-fire"></i></span></h4>
-					<p class="gameDescription">Roblox is an online platform that allows users to create and play games. It offers a wide variety of games created by other users, ranging from role-playing games to virtual worlds.</p>
-					<button class="btn" data-href="https://websitesball.com/apps/roblox-corporation/5349/roblox.html" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-				</div>
-	
-				<div class="btnContainer">
-					<h4>Android OS</h4>
-					<p class="gameDescription">Android OS is an operating system used by millions of smartphones and tablets worldwide. While not a game itself, it powers a wide range of games and apps available on mobile devices.</p>
-					<button class="btn" data-href='https://websitesball.com/play/uncube/7074/now' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-				</div>
-				
-				<div class="btnContainer">
-					<h4>Stumble Guys</h4>
-					<p class="gameDescription">Stumble Guys is a multiplayer party game where you compete against other players in various obstacle courses. The goal is to be the last one standing and reach the finish line.</p>
-					<button class="btn" data-href='https://websitesball.com/play/kitka-games/7999/stumble-guys' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-				</div>
-	
-				<div class="btnContainer">
-					<h4>Fortnite <span class="tag">New <i class="fa-solid fa-star"></i></span></h4>
-					<p class="gameDescription">Fortnite is a popular battle royale game where players fight against each other in an ever-shrinking map. It also features a creative mode where players can build their own worlds and a cooperative mode where they can team up to complete missions.</p>
-					<button class="btn" data-href='/apps/epic-games/7308/fortnite.html' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-				</div>
-				
-				<div class="btnContainer">
-					<h4>COD Mobile</h4>
-					<p class="gameDescription">COD Mobile is a mobile version of the popular Call of Duty franchise. It offers a variety of multiplayer game modes, including team deathmatch, battle royale, and zombies. Players can customize their loadouts and compete against other players online.</p>
-					<button class="btn" data-href='https://websitesball.com/play/activision-publishing/7935/call-of-duty' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-				</div>
-				
-				<div class="btnContainer">
-					<h4>PUBG</h4>
-					<p class="gameDescription">PUBG (PlayerUnknown's Battlegrounds) is a battle royale game where players fight against each other in a large open-world environment. The goal is to be the last one standing by eliminating other players and surviving until the end.</p>
-					<button class="btn" data-href='https://websitesball.com/play/proxima-beta/2609/pubg-mobile-resistance' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-				</div>
-				
-				<div class="btnContainer">
-					<h4>Cookie Run</h4>
-					<p class="gameDescription">Cookie Run is a fun and addictive endless runner game where you control a cute cookie character and try to run as far as possible while collecting coins and avoiding obstacles.</p>
-					<button class="btn" data-href='https://websitesball.com/play/devsisters-corporation/3475/cookie-run' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-				</div>
+    <div id="urlInput">
+        <br>
+        <br>
+        <br>
+        <h2 style="color: #fafafa; font-size: 60px; text-align: center; margin-bottom: 0px;">Emerald Games</h2>
+        <h3 style="color: #909098; font-size: 15px; text-align: center; margin-top: 5px; font-weight: 300;">Please find below a curated selection of games available on Emerald:</h3>
+        <h3 style="padding-bottom: 20px;"></h3>
+        <div class="btnBox">
+            <h2 style="color: #fafafa; font-size: 40px; text-align: center; margin-bottom: 0px;">Vizion Enabled Games</h2>
+            <div class="btnContainer">
+                <h4>Roblox <span class="hot">Popular <i class="fa-solid fa-fire"></i></span></h4>
+                <p class="gameDescription">Roblox is an online platform that allows users to create and play games. It offers a wide variety of games created by other users, ranging from role-playing games to virtual worlds.</p>
+                <button class="btn" data-href="https://websitesball.com/apps/roblox-corporation/5349/roblox.html" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+            </div>
+            <div class="btnContainer">
+                <h4>Android OS</h4>
+                <p class="gameDescription">Android OS is an operating system used by millions of smartphones and tablets worldwide. While not a game itself, it powers a wide range of games and apps available on mobile devices.</p>
+                <button class="btn" data-href="https://websitesball.com/play/uncube/7074/now" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+            </div>
+            <div class="btnContainer">
+                <h4>Stumble Guys</h4>
+                <p class="gameDescription">Stumble Guys is a multiplayer party game where you compete against other players in various obstacle courses. The goal is to be the last one standing and reach the finish line.</p>
+                <button class="btn" data-href="https://websitesball.com/play/kitka-games/7999/stumble-guys" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+            </div>
+            <div class="btnContainer">
+                <h4>Fortnite <span class="tag">New <i class="fa-solid fa-star"></i></span></h4>
+                <p class="gameDescription">Fortnite is a popular battle royale game where players fight against each other in an ever-shrinking map. It also features a creative mode where players can build their own worlds and a cooperative mode where they can team up to complete missions.</p>
+                <button class="btn" data-href="/apps/epic-games/7308/fortnite.html" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+            </div>
+            <div class="btnContainer">
+                <h4>COD Mobile</h4>
+                <p class="gameDescription">COD Mobile is a mobile version of the popular Call of Duty franchise. It offers a variety of multiplayer game modes, including team deathmatch, battle royale, and zombies. Players can customize their loadouts and compete against other players online.</p>
+                <button class="btn" data-href="https://websitesball.com/play/activision-publishing/7935/call-of-duty" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+            </div>
+            <div class="btnContainer">
+                <h4>PUBG</h4>
+                <p class="gameDescription">PUBG (PlayerUnknown's Battlegrounds) is a battle royale game where players fight against each other in a large open-world environment. The goal is to be the last one standing by eliminating other players and surviving until the end.</p>
+                <button class="btn" data-href="https://websitesball.com/play/proxima-beta/2609/pubg-mobile-resistance" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+            </div>
+            <div class="btnContainer">
+                <h4>Cookie Run</h4>
+                <p class="gameDescription">Cookie Run is a fun and addictive endless runner game where you control a cute cookie character and try to run as far as possible while collecting coins and avoiding obstacles.</p>
+                <button class="btn" data-href="https://websitesball.com/play/devsisters-corporation/3475/cookie-run" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+            </div>
 				
 				<div class="btnContainer">
 					<h4>Singing Monsters</h4>
