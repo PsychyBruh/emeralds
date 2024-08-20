@@ -30,13 +30,20 @@ function resetTheme() {
 
 // Function to handle background URL change
 function changeBackgroundUrl(url) {
+    const backgroundElement = document.getElementById('mystery-background');
     if (url) {
-        document.getElementById('mystery-background').style.backgroundImage = `url(${url})`;
+        backgroundElement.style.backgroundImage = `url(${url})`;
         localStorage.setItem('shuttle||backgroundImage', url);
     } else {
-        document.getElementById('mystery-background').style.backgroundImage = '';
+        backgroundElement.style.backgroundImage = '';
         localStorage.removeItem('shuttle||backgroundImage');
     }
+}
+
+// Function to apply the custom background
+function applyBackground() {
+    const url = document.querySelector('#backgroundUrl').value;
+    changeBackgroundUrl(url);
 }
 
 // Function to reset the custom background
@@ -69,5 +76,5 @@ window.addEventListener("load", () => {
     document.querySelector("#reset-theme").addEventListener("click", resetTheme);
     document.querySelector("#abc").addEventListener("click", abc);
     document.querySelector("#reset-background").addEventListener("click", resetBackground);
-    document.querySelector("#backgroundUrl").addEventListener("input", e => changeBackgroundUrl(e.target.value));
+    document.querySelector("#apply-background").addEventListener("click", applyBackground);
 });
