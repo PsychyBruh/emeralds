@@ -1,278 +1,158 @@
-<link href="/assets/css/games.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<div id="align">
-    <nav id="nav">
-        <a onclick="exit()">
-            <i class="fa-solid fa-xmark" style="color: white; margin-right: auto; margin-left: 20px; font-size: 24px; cursor: pointer;"></i>
-        </a>
-        <span id="m" style="margin: auto;"></span>
-        <a onclick="fullscreen()">
-            <i class="fa-solid fa-expand" style="color: white; margin-left: auto; margin-right: 45px; font-size: 20px; cursor: pointer;"></i>
-        </a>
-    </nav>
-    <iframe id="ifr"></iframe>
-</div>
-<style>
-    .fl {
-        font-family: 'Poppins';
-        font-size: 1.2rem;
-        margin-left: 2rem;
-        margin-top: 0.7rem;
-        display: block;
-        transition: all 0.3s;
-        transform: translateY(0);
-    }
-    #urlInput {
-        font-family: 'Poppins';
-        font-size: 1.2rem;
-        color: #fafafa;
-        margin: auto;
-        width: 80%;
-        padding: 10px;
-        height: 100%;
-    }
-    .btn {
-        font-family: 'Poppins';
-        font-size: 15px;
-        font-weight: 500;
-        padding: 5px 10px;
-        background-color: #fafafa;
-        color: #424244;
-        border: none;
-        border-radius: 10px;
-        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        cursor: pointer;
-        transition: all 0.3s ease-in-out;
-    }
-    .btn:hover {
-        background-color: #e2e2e2;
-        color: #424244;
-    }
-    .btnContainer {
-        display: inline-block;
-        border: 1px solid #27272a;
-        background-color: transparent;
-        padding: 10px;
-        border-radius: 10px;
-        width: 400px;
-        transition: all 0.2s ease-in-out;
-    }
-    .btnContainer:hover {
-        background-color: #27272a;
-    }
-    .btnContainer h4 {
-        color: #fafafa;
-        text-align: left;
-        margin-top: 5px;
-        margin-bottom: 5px;
-        font-weight: 500;
-    }
-    .btnBox {
-        align-items: center;
-        display: flex;
-        gap: 25px;
-        flex-wrap: wrap;
-        align-content: center;
-        justify-content: center;
-        margin-bottom: 30px;
-    }
-    .gameDescription {
-        color: grey;
-        font-size: 12px;
-    }
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
-    ::-webkit-scrollbar-track {
-        background: #09090b;
-        border-radius: 10px;
-    }
-    ::-webkit-scrollbar-thumb {
-        background: #fafafa;
-        border-radius: 10px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-        background: #acacac;
-    }
-    .tag {
-        background: linear-gradient(to right, #7e57c2, #039be5);
-        color: #fff;
-        font-size: 12px;
-        padding: 2px 6px;
-        border-radius: 5px;
-        position: relative;
-        top: -3px;
-        margin-left: 5px;
-    }
-    .hot {
-        background: linear-gradient(to right, #ff2525, #e57c03);
-        color: #fff;
-        font-size: 12px;
-        padding: 2px 6px;
-        border-radius: 5px;
-        position: relative;
-        top: -3px;
-        margin-left: 5px;
-    }
-</style>
-<div class="games-body">
-    <div id="urlInput">
-        <br>
-        <br>
-        <br>
-        <h2 style="color: #fafafa; font-size: 60px; text-align: center; margin-bottom: 0px;">Emerald Games</h2>
-        <h3 style="color: #909098; font-size: 15px; text-align: center; margin-top: 5px; font-weight: 300;">Please find below a curated selection of games available on Emerald:</h3>
-        <h3 style="padding-bottom: 20px;"></h3>
-        <div class="btnBox">
-            <h2 style="color: #fafafa; font-size: 40px; text-align: center; margin-bottom: 0px;">Vizion Enabled Games</h2>
-            <div class="btnContainer">
-                <h4>Roblox <span class="hot">Popular <i class="fa-solid fa-fire"></i></span></h4>
-                <p class="gameDescription">Roblox is an online platform that allows users to create and play games. It offers a wide variety of games created by other users, ranging from role-playing games to virtual worlds.</p>
-                <button class="btn" data-href="https://websitesball.com/apps/roblox-corporation/5349/roblox.html" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emerald Games</title>
+    <link href="/assets/css/games.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="/assets/js/proxy.js" defer></script>
+    <script src="/assets/js/games.js" defer></script>
+</head>
+<body>
+    <div id="align">
+        <nav id="nav">
+            <a onclick="exit()">
+                <i class="fa-solid fa-xmark" style="color: white; margin-right: auto; margin-left: 20px; font-size: 24px; cursor: pointer;"></i>
+            </a>
+            <span id="m" style="margin: auto;"></span>
+            <a onclick="fullscreen()">
+                <i class="fa-solid fa-expand" style="color: white; margin-left: auto; margin-right: 45px; font-size: 20px; cursor: pointer;"></i>
+            </a>
+        </nav>
+        <iframe id="ifr"></iframe>
+    </div>
+    
+    <div class="games-body">
+        <div id="urlInput">
+            <h2 style="color: #fafafa; font-size: 60px; text-align: center; margin-bottom: 0;">Emerald Games</h2>
+            <h3 style="color: #909098; font-size: 15px; text-align: center; margin-top: 5px; font-weight: 300;">Please find below a curated selection of games available on Emerald:</h3>
+            
+            <h2 style="color: #fafafa; font-size: 40px; text-align: center; margin-bottom: 0;">Vizion Enabled Games</h2>
+            <div class="btnBox">
+                <!-- List of games -->
+                <div class="btnContainer">
+                    <h4>Roblox <span class="hot">Popular <i class="fa-solid fa-fire"></i></span></h4>
+                    <p class="gameDescription">Roblox is an online platform that allows users to create and play games. It offers a wide variety of games created by other users, ranging from role-playing games to virtual worlds.</p>
+                    <button class="btn" data-href="https://websitesball.com/apps/roblox-corporation/5349/roblox.html" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>Android OS</h4>
+                    <p class="gameDescription">Android OS is an operating system used by millions of smartphones and tablets worldwide. While not a game itself, it powers a wide range of games and apps available on mobile devices.</p>
+                    <button class="btn" data-href="https://websitesball.com/play/uncube/7074/now" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>Stumble Guys</h4>
+                    <p class="gameDescription">Stumble Guys is a multiplayer party game where you compete against other players in various obstacle courses. The goal is to be the last one standing and reach the finish line.</p>
+                    <button class="btn" data-href="https://websitesball.com/play/kitka-games/7999/stumble-guys" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>Fortnite <span class="tag">New <i class="fa-solid fa-star"></i></span></h4>
+                    <p class="gameDescription">Fortnite is a popular battle royale game where players fight against each other in an ever-shrinking map. It also features a creative mode where players can build their own worlds and a cooperative mode where they can team up to complete missions.</p>
+                    <button class="btn" data-href="/apps/epic-games/7308/fortnite.html" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>COD Mobile</h4>
+                    <p class="gameDescription">COD Mobile is a mobile version of the popular Call of Duty franchise. It offers a variety of multiplayer game modes, including team deathmatch, battle royale, and zombies. Players can customize their loadouts and compete against other players online.</p>
+                    <button class="btn" data-href="https://websitesball.com/play/activision-publishing/7935/call-of-duty" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>PUBG</h4>
+                    <p class="gameDescription">PUBG (PlayerUnknown's Battlegrounds) is a battle royale game where players fight against each other in a large open-world environment. The goal is to be the last one standing by eliminating other players and surviving until the end.</p>
+                    <button class="btn" data-href="https://websitesball.com/play/proxima-beta/2609/pubg-mobile-resistance" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>Cookie Run</h4>
+                    <p class="gameDescription">Cookie Run is a fun and addictive endless runner game where you control a cute cookie character and try to run as far as possible while collecting coins and avoiding obstacles.</p>
+                    <button class="btn" data-href="https://websitesball.com/play/devsisters-corporation/3475/cookie-run" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>Singing Monsters</h4>
+                    <p class="gameDescription">Singing Monsters is a unique musical game where you breed and collect adorable monsters that sing and create harmonious melodies. Discover new monster species and create your own musical paradise.</p>
+                    <button class="btn" data-href='https://websitesball.com/play/big-blue/8811/singing-monsters' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>Minecraft Trial</h4>
+                    <p class="gameDescription">Minecraft Trial is a free version of the popular sandbox game where you can explore, mine resources, and build your own virtual world. Experience the creative and survival modes in this limited trial version.</p>
+                    <button class="btn" data-href='https://websitesball.com/play/mojang/2534/minecraft-trial' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>Granny</h4>
+                    <p class="gameDescription">Granny is a horror game where you find yourself trapped in a haunted house. Your goal is to escape while avoiding Granny, a creepy old woman who can hear every noise you make.</p>
+                    <button class="btn" data-href='https://websitesball.com/play/dvloper/4807/granny' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>Among Us</h4>
+                    <p class="gameDescription">Among Us is a multiplayer game of teamwork and betrayal. Work together with other players to complete tasks on a spaceship, but be careful, as there are impostors among the crew who will try to eliminate everyone.</p>
+                    <button class="btn" data-href='https://websitesball.com/play/innersloth-llc/4047/among-us' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>Pixel Gun</h4>
+                    <p class="gameDescription">Pixel Gun is a fast-paced multiplayer shooter game with blocky graphics. Battle against players from around the world in various game modes, such as Team Deathmatch, Battle Royale, and Capture the Flag.</p>
+                    <button class="btn" data-href='https://websitesball.com/play/pixel-gun-3d/2652/pixel-gun' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>Animal Jam</h4>
+                    <p class="gameDescription">Animal Jam is an online virtual world where you can create and customize your own animal character and explore a vibrant and interactive environment. Play games, solve puzzles, and interact with other players.</p>
+                    <button class="btn" data-href='https://websitesball.com/play/national-geographic-society/9805/animal-jam' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>Google Snake</h4>
+                    <p class="gameDescription">Google's version of the classic Snake game. Navigate the snake to collect food while avoiding collisions with the walls and the snake's own tail.</p>
+                    <button class="btn" data-href='https://www.google.com/search?q=snake+game+google' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>Gartic Phone</h4>
+                    <p class="gameDescription">Gartic Phone is a fun and creative drawing game where players take turns drawing and guessing each other's drawings. The game creates hilarious and unexpected outcomes as the prompts and drawings evolve.</p>
+                    <button class="btn" data-href='https://websitesball.com/play/gartic/8977/gartic-phone' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>Paper.io 2</h4>
+                    <p class="gameDescription">Paper.io 2 is an addictive multiplayer game where you control a paper character and try to conquer territory on the map while avoiding other players. Expand your territory and become the largest player.</p>
+                    <button class="btn" data-href='https://websitesball.com/play/voodoo/4842/paper-io-2' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>Surviv.io</h4>
+                    <p class="gameDescription">Surviv.io is a top-down multiplayer battle royale game. Gather resources, find weapons, and fight against other players in a shrinking play area to be the last one standing.</p>
+                    <button class="btn" data-href='https://websitesball.com/play/surviv-io/5756/surviv-io' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>Survivor.io</h4>
+                    <p class="gameDescription">Survivor.io is a survival game where you fight against hordes of enemies and bosses. Collect weapons, upgrade your skills, and survive as long as possible.</p>
+                    <button class="btn" data-href='https://websitesball.com/play/superbox-inc/3438/survivor-io' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>JustBuild.LOL</h4>
+                    <p class="gameDescription">JustBuild.LOL is a building game where you can practice your building skills in a creative environment. Compete with other players to create the most impressive structures.</p>
+                    <button class="btn" data-href='https://websitesball.com/play/justbuild-lol/3501/justbuild-lol' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>Krunker</h4>
+                    <p class="gameDescription">Krunker is a first-person shooter game with pixelated graphics. Compete in various game modes and maps, and enjoy fast-paced multiplayer action.</p>
+                    <button class="btn" data-href='https://websitesball.com/play/yendis/2196/krunker' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>Little Alchemy</h4>
+                    <p class="gameDescription">Little Alchemy is a puzzle game where you combine elements to create new items. Discover all possible combinations and unlock new elements as you progress.</p>
+                    <button class="btn" data-href='https://websitesball.com/play/little-alchemy/9237/little-alchemy' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>WormsZone.io</h4>
+                    <p class="gameDescription">WormsZone.io is a multiplayer game where you control a worm and eat food to grow larger. Avoid other worms and try to become the biggest worm on the server.</p>
+                    <button class="btn" data-href='https://websitesball.com/play/wormszone-io/8434/wormszone-io' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>Drunken Duel</h4>
+                    <p class="gameDescription">Drunken Duel is a funny and chaotic multiplayer game where you battle against other players in a variety of drunken-themed mini-games.</p>
+                    <button class="btn" data-href='https://websitesball.com/play/jb-game-studio/3567/drunken-duel' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
+                <div class="btnContainer">
+                    <h4>Run 3</h4>
+                    <p class="gameDescription">Run 3 is an endless runner game where you navigate a character through a series of challenging levels and obstacles. Test your reflexes and see how far you can run.</p>
+                    <button class="btn" data-href='https://websitesball.com/play/platonic-games/9494/run-3' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
+                </div>
             </div>
-            <div class="btnContainer">
-                <h4>Android OS</h4>
-                <p class="gameDescription">Android OS is an operating system used by millions of smartphones and tablets worldwide. While not a game itself, it powers a wide range of games and apps available on mobile devices.</p>
-                <button class="btn" data-href="https://websitesball.com/play/uncube/7074/now" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-            </div>
-            <div class="btnContainer">
-                <h4>Stumble Guys</h4>
-                <p class="gameDescription">Stumble Guys is a multiplayer party game where you compete against other players in various obstacle courses. The goal is to be the last one standing and reach the finish line.</p>
-                <button class="btn" data-href="https://websitesball.com/play/kitka-games/7999/stumble-guys" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-            </div>
-            <div class="btnContainer">
-                <h4>Fortnite <span class="tag">New <i class="fa-solid fa-star"></i></span></h4>
-                <p class="gameDescription">Fortnite is a popular battle royale game where players fight against each other in an ever-shrinking map. It also features a creative mode where players can build their own worlds and a cooperative mode where they can team up to complete missions.</p>
-                <button class="btn" data-href="/apps/epic-games/7308/fortnite.html" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-            </div>
-            <div class="btnContainer">
-                <h4>COD Mobile</h4>
-                <p class="gameDescription">COD Mobile is a mobile version of the popular Call of Duty franchise. It offers a variety of multiplayer game modes, including team deathmatch, battle royale, and zombies. Players can customize their loadouts and compete against other players online.</p>
-                <button class="btn" data-href="https://websitesball.com/play/activision-publishing/7935/call-of-duty" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-            </div>
-            <div class="btnContainer">
-                <h4>PUBG</h4>
-                <p class="gameDescription">PUBG (PlayerUnknown's Battlegrounds) is a battle royale game where players fight against each other in a large open-world environment. The goal is to be the last one standing by eliminating other players and surviving until the end.</p>
-                <button class="btn" data-href="https://websitesball.com/play/proxima-beta/2609/pubg-mobile-resistance" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-            </div>
-            <div class="btnContainer">
-                <h4>Cookie Run</h4>
-                <p class="gameDescription">Cookie Run is a fun and addictive endless runner game where you control a cute cookie character and try to run as far as possible while collecting coins and avoiding obstacles.</p>
-                <button class="btn" data-href="https://websitesball.com/play/devsisters-corporation/3475/cookie-run" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-            </div>
-				
-				<div class="btnContainer">
-					<h4>Singing Monsters</h4>
-					<p class="gameDescription">Singing Monsters is a unique musical game where you breed and collect adorable monsters that sing and create harmonious melodies. Discover new monster species and create your own musical paradise.</p>
-					<button class="btn" data-href='https://websitesball.com/play/big-blue/8811/singing-monsters' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-				</div>
-				
-				<div class="btnContainer">
-					<h4>Minecraft Trial</h4>
-					<p class="gameDescription">Minecraft Trial is a free version of the popular sandbox game where you can explore, mine resources, and build your own virtual world. Experience the creative and survival modes in this limited trial version.</p>
-					<button class="btn" data-href='https://websitesball.com/play/mojang/2534/minecraft-trial' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-				</div>
-				
-				<div class="btnContainer">
-					<h4>Granny</h4>
-					<p class="gameDescription">Granny is a horror game where you find yourself trapped in a haunted house. Your goal is to escape while avoiding Granny, a creepy old woman who can hear every noise you make.</p>
-					<button class="btn" data-href='https://websitesball.com/play/dvloper/4807/granny' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-				</div>
-				
-				<div class="btnContainer">
-					<h4>Among Us</h4>
-					<p class="gameDescription">Among Us is a multiplayer game of teamwork and betrayal. Work together with other players to complete tasks on a spaceship, but be careful, as there are impostors among the crew who will try to eliminate everyone.</p>
-					<button class="btn" data-href='https://websitesball.com/play/innersloth-llc/4047/among-us' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-				</div>
-				
-				<div class="btnContainer">
-					<h4>Pixel Gun</h4>
-					<p class="gameDescription">Pixel Gun is a fast-paced multiplayer shooter game with blocky graphics. Battle against players from around the world in various game modes, such as Team Deathmatch, Battle Royale, and Capture the Flag.</p>
-					<button class="btn" data-href='https://websitesball.com/play/pixel-gun-3d/2652/pixel-gun' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button> 
-				</div>
-				
-				<div class="btnContainer">
-					<h4>Animal Jam</h4>
-					<p class="gameDescription">Animal Jam is an online virtual world where you can create and customize your own animal character and explore a vibrant and interactive world filled with games, adventures, and educational activities.</p>
-					<button class="btn" data-href='https://websitesball.com/play/wildworks/6163/animal-jam' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-				</div>
-				
-				<div class="btnContainer">
-					<h4>Poppy Playtime</h4>
-					<p class="gameDescription">Poppy Playtime is a spooky and thrilling puzzle game set in an abandoned toy factory. Solve puzzles, avoid dangerous traps, and uncover the dark secrets of Poppy, the mechanical doll.</p>
-					<button class="btn" data-href='https://websitesball.com/play/mob-games-studio/1293/poppy-playtime' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-				</div>
-				
-				<div class="btnContainer">
-					<h4>Zepeto</h4>
-					<p class="gameDescription">Zepeto is a social networking app where you can create a 3D avatar of yourself and interact with other users in a virtual world. Customize your avatar, chat with friends, and play mini-games.</p>
-					<button class="btn" data-href='https://websitesball.com/play/zegal/2055/zepeto' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-				</div>
-				
-				<div class="btnContainer">
-					<h4>WorldBox</h4>
-					<p class="gameDescription">WorldBox is a sandbox game where you can create and simulate your own world. Control various elements, such as civilizations, disasters, and creatures, and watch how your world evolves over time.</p>
-					<button class="btn" data-href='https://websitesball.com/play/box-world/4385/worldbox' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-				</div>
-				
-				<div class="btnContainer">
-					<h4>Gartic Phone</h4>
-					<p class="gameDescription">Gartic Phone is a fun online drawing and guessing game where players take turns drawing and describing phrases. The game results in hilarious and creative interpretations of the original phrases.</p>
-					<button class="btn" data-href='https://websitesball.com/play/gartic-games/5600/gartic-phone' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-				</div>
-				
-				<div class="btnContainer">
-					<h4>Slither.io</h4>
-					<p class="gameDescription">Slither.io is a multiplayer online game where you control a snake and compete against other players to grow your snake by eating pellets and avoiding collisions. The larger your snake, the more points you earn.</p>
-					<button class="btn" data-href='https://websitesball.com/play/slither-io/1898/slither-io' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-				</div>
-				
-				<div class="btnContainer">
-					<h4>Angry Birds</h4>
-					<p class="gameDescription">Angry Birds is a classic physics-based puzzle game where you launch birds with different abilities at structures to knock over pigs. Each level presents new challenges and obstacles to overcome.</p>
-					<button class="btn" data-href='https://websitesball.com/play/rovio/3229/angry-birds' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-				</div>
-				
-				<div class="btnContainer">
-					<h4>Subway Surfers</h4>
-					<p class="gameDescription">Subway Surfers is an endless runner game where you dash through subway tracks, dodge obstacles, and collect coins. The game features vibrant graphics and fast-paced action.</p>
-					<button class="btn" data-href='https://websitesball.com/play/subway-surfers/4120/subway-surfers' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-				</div>
-				
-				<div class="btnContainer">
-					<h4>Clash of Clans</h4>
-					<p class="gameDescription">Clash of Clans is a popular strategy game where you build and upgrade your village, train armies, and raid other players' bases to collect resources. Join a clan and participate in clan wars.</p>
-					<button class="btn" data-href='https://websitesball.com/play/supercell/5417/clash-of-clans' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	</div>      
-	
-	<h2 style="color: #fafafa; font-size: 40px; text-align: center; margin-bottom: 0px;">Regular Games</h2>
-
-	<div class="btnContainer">
-		<h4>Google Snake</h4>
-		<p class="gameDescription">Google's version of the snake game.</p>
-		<button class="btn" data-href='https://www.google.com/search?q=snake+game+google&sca_esv=050a7531cb22c9f5&rlz=1CAOVJJ_enUS1123US1123&ei=lWbDZubLLtat5NoP2aegwAY&ved=0ahUKEwim6sqgsYGIAxXWFlkFHdkTCGgQ4dUDCBA&uact=5&oq=snake+game+google&gs_lp=Egxnd3Mtd2l6LXNlcnAiEXNuYWtlIGdhbWUgZ29vZ2xlMggQABiABBixAzIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABEjXHFCkAljEG3ACeACQAQCYAVWgAc8EqgEBObgBA8gBAPgBAZgCCqAC3ATCAgoQABiwAxjWBBhHwgINEAAYgAQYsAMYQxiKBcICExAuGIAEGLADGEMYyAMYigXYAQHCAhYQLhiABBiwAxhDGNQCGMgDGIoF2AEBwgIIEC4YgAQYsQPCAgsQABiABBiRAhiKBZgDAIgGAZAGEboGBggBEAEYCJIHAjEwoAf3Pg&sclient=gws-wiz-serp&safe=active&ssui=on'>Play</button>
-	</div>      
-	
-	<div class="btnContainer">
-		<h4>Snake.io</h4>
-		<p class="gameDescription">Snake.io is a multiplayer game where you must slither and survive as long as possible. Challenge your friends and try to be the most giant worm in the arena. Think you can reach the top of the leaderboard?</p>
-		<button class="btn" data-href='https://snake.io/'>Play</button>
-	</div>      
-	 
-	<div class="btnContainer">
-		<h4>Shell Shockers</h4>
-		<p class="gameDescription">Play unlimited egg games with your pals in private games, or hop into public matches to fry some friends you haven't met yet.</p>
-		<button class="btn" data-href='https://shellshock.io/'>Play</button>
-	</div>      
-	         
-</div>
-</div>
-</div>
-</div>
-<script src="/assets/js/proxy.js"></script>
-<script src="/assets/js/games.js"></script>
+        </div>
+    </div>
+</body>
+</html>
