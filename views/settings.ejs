@@ -1,67 +1,172 @@
-<style>
-	.box {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		margin-left: 25px;
-	}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <style>
+        .box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-left: 25px;
+        }
 
-	.row {
-		display: flex;
-		flex-direction: row;
-	}
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
 
-	.container {
-		display: flex;
-		flex-direction: column;
-	}
-</style>
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
 
-<div class="container">
-	<div class="row" style="margin-top:5%;">
-		<div class="box">
-			<p>Search Engine</p>
-			<select class="browsers" id="se">
-				<option value="google">Google</option>
-				<option value="ddg">DuckDuckGo</option>
-				<option value="brave">Brave</option>
-			</select>
-		</div>
-		<div class="box">
-			<p>Title</p>
-			<input type="text" class="settingsInput button" onchange="changeTitle(this.value)"
-				placeholder="Change Title" />
-			<input type="text" class="settingsInput button" onchange="changeFavicon(this.value)"
-				placeholder="Change Favicon (URL)" />
-		</div>
-		<div class="box">
-			<p>Proxy Type</p>
-			<select class="browsers" id="proxy">
-				<option value="uv">Ultraviolet</option>
-				<option value="dy">Dynamic (BETA)</option>
-			</select>
-		</div>
-	</div>
+        /* Style for the custom background container */
+        #mystery-background {
+            width: 100%;
+            height: 200px; /* Adjust the height as needed */
+            border: 1px solid #ccc; /* Optional border */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row" style="margin-top:5%;">
+            <div class="box">
+                <p>Search Engine</p>
+                <select class="browsers" id="se">
+                    <option value="google">Google</option>
+                    <option value="ddg">DuckDuckGo</option>
+                    <option value="brave">Brave</option>
+                </select>
+            </div>
+            <div class="box">
+                <p>Title</p>
+                <input type="text" class="settingsInput button" onchange="changeTitle(this.value)"
+                    placeholder="Change Title" />
+                <input type="text" class="settingsInput button" onchange="changeFavicon(this.value)"
+                    placeholder="Change Favicon (URL)" />
+            </div>
+            <div class="box">
+                <p>Proxy Type</p>
+                <select class="browsers" id="proxy">
+                    <option value="uv">Ultraviolet</option>
+                    <option value="dy">Dynamic (BETA)</option>
+                </select>
+            </div>
+        </div>
 
-	<div class="row">
-		<div class="box">
-			<p>Mystery</p>
-			<button class="button" id="mystery-button">Toggle</button>
-		</div>
-		<div class="box">
-			<p>Custom Themes</p>
-			<input type="color" id="colorPicker" class="settingsInput button" oninput="changeTheme(this.value)">
-			<button class="button" id="reset-theme">Reset</button>
-		</div>
-		<div class="box">
-			<p>About:Blank Cloaking</p>
-			<button class="button" id="abc">Click Me</button>
-		</div>
-	</div>
-</div>
+        <div class="row">
+            <div class="box">
+                <p>Custom Background</p>
+                <!-- Input field for background image URL -->
+                <input type="text" id="backgroundUrl" class="settingsInput button" placeholder="Enter Background URL" oninput="changeBackgroundUrl(this.value)">
+                <button class="button" id="reset-background">Reset Background</button>
+                <div id="mystery-background">
+                    <p>Background Preview</p>
+                </div>
+            </div>
+            <div class="box">
+                <p>Custom Themes</p>
+                <input type="color" id="colorPicker" class="settingsInput button" oninput="changeTheme(this.value)">
+                <button class="button" id="reset-theme">Reset</button>
+            </div>
+            <div class="box">
+                <p>About:Blank Cloaking</p>
+                <button class="button" id="abc">Click Me</button>
+            </div>
+        </div>
+    </div>
 
-<div style="margin-top: 50%; z-index: 1;">
-	<%- include("ad"); %>
-</div>
-<script src="/assets/js/settings.js"></script>
+    <div style="margin-top: 50%; z-index: 1;">
+        <%- include("ad"); %>
+    </div>
+
+    <script>
+        // Helper function to find and select an option
+        function findSel(sel, name) {
+            return [...sel.querySelectorAll("option")].filter(e => e.value == name)[0];
+        }
+
+        // Function to change the favicon
+        function changeFavicon(value) {
+            setFavicon(value);
+            localStorage.setItem("shuttle||favicon", value);
+        }
+
+        // Function to change the title
+        function changeTitle(value) {
+            document.title = value;
+            localStorage.setItem("shuttle||title", value);
+        }
+
+        // Function to change the theme color
+        function changeTheme(value) {
+            localStorage.setItem("shuttle||themehex", value);
+            document.body.style.backgroundColor = value;
+        }
+
+        // Function to reset the theme to default
+        function resetTheme() {
+            localStorage.removeItem("shuttle||themehex");
+            document.body.style.backgroundColor = "#0b0b0b";
+            document.querySelector("#colorPicker").value = "#0b0b0b";
+        }
+
+        // Function to handle background URL change
+        function changeBackgroundUrl(url) {
+            if (url) {
+                document.getElementById('mystery-background').style.backgroundImage = `url(${url})`;
+                localStorage.setItem('shuttle||backgroundImage', url);
+            } else {
+                document.getElementById('mystery-background').style.backgroundImage = '';
+                localStorage.removeItem('shuttle||backgroundImage');
+            }
+        }
+
+        // Function to reset the custom background
+        function resetBackground() {
+            document.getElementById('mystery-background').style.backgroundImage = '';
+            localStorage.removeItem('shuttle||backgroundImage');
+            document.querySelector('#backgroundUrl').value = '';
+        }
+
+        // Load saved settings from localStorage on page load
+        window.addEventListener("load", () => {
+            const searchSelector = document.getElementById("se");
+            const proxySelector = document.getElementById("proxy");
+            try {
+                const themeColor = localStorage.getItem("shuttle||themehex");
+                if (themeColor) document.querySelector("#colorPicker").value = themeColor;
+                if (localStorage.getItem("shuttle||search")) findSel(searchSelector, localStorage.getItem("shuttle||search")).selected = true;
+                if (localStorage.getItem("shuttle||proxy")) findSel(proxySelector, localStorage.getItem("shuttle||proxy")).selected = true;
+                const backgroundImage = localStorage.getItem('shuttle||backgroundImage');
+                if (backgroundImage) {
+                    document.getElementById('mystery-background').style.backgroundImage = `url(${backgroundImage})`;
+                    document.querySelector('#backgroundUrl').value = backgroundImage;
+                }
+            } catch (error) {
+                console.error("Error loading settings:", error);
+            }
+
+            searchSelector.addEventListener("change", e => localStorage.setItem("shuttle||search", e.target.value));
+            proxySelector.addEventListener("change", e => localStorage.setItem("shuttle||proxy", e.target.value));
+            document.querySelector("#reset-theme").addEventListener("click", resetTheme);
+            document.querySelector("#abc").addEventListener("click", abc);
+            document.querySelector("#reset-background").addEventListener("click", resetBackground);
+            document.querySelector("#backgroundUrl").addEventListener("input", e => changeBackgroundUrl(e.target.value));
+        });
+    </script>
+
+    <script src="/assets/js/settings.js"></script>
+</body>
+</html>
