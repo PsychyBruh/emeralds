@@ -69,7 +69,8 @@
             <div class="box">
                 <p>Custom Background</p>
                 <!-- Input field for background image URL -->
-                <input type="text" id="backgroundUrl" class="settingsInput button" placeholder="Enter Background URL" oninput="changeBackgroundUrl(this.value)">
+                <input type="text" id="backgroundUrl" class="settingsInput button" placeholder="Enter Background URL">
+                <button class="button" id="apply-background">Apply Background</button>
                 <button class="button" id="reset-background">Reset Background</button>
                 <div id="mystery-background">
                     <p>Background Preview</p>
@@ -133,6 +134,12 @@
             }
         }
 
+        // Function to apply the custom background
+        function applyBackground() {
+            const url = document.querySelector('#backgroundUrl').value;
+            changeBackgroundUrl(url);
+        }
+
         // Function to reset the custom background
         function resetBackground() {
             document.getElementById('mystery-background').style.backgroundImage = '';
@@ -163,7 +170,7 @@
             document.querySelector("#reset-theme").addEventListener("click", resetTheme);
             document.querySelector("#abc").addEventListener("click", abc);
             document.querySelector("#reset-background").addEventListener("click", resetBackground);
-            document.querySelector("#backgroundUrl").addEventListener("input", e => changeBackgroundUrl(e.target.value));
+            document.querySelector("#apply-background").addEventListener("click", applyBackground);
         });
     </script>
 
