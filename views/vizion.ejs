@@ -22,7 +22,6 @@
             font-size: 32px; /* Set font size to 32px */
             font-family: 'Nexa Heavy', Arial, sans-serif;
             color: white; /* Set text color to white */
-            background-color: #121212; /* Updated background color for dark mode */
             padding: 10px; /* Add some padding for better readability */
             border-radius: 5px; /* Add rounded corners */
             text-align: center; /* Center text horizontally */
@@ -33,6 +32,10 @@
             // Display the loading message
             var loadingMessage = document.getElementById('loading');
             loadingMessage.style.display = 'block';
+
+            // Retrieve the user's color choice from localStorage or default to a color
+            var userColor = localStorage.getItem('shuttle||themehex') || '#121212';
+            loadingMessage.style.backgroundColor = userColor;
 
             // Specify the URL of the HTML file you want to open
             var url = 'vizion.html'; // Change this to the path of the HTML file you want to open
