@@ -1,158 +1,273 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emerald Games</title>
-    <link href="/assets/css/games.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="/assets/js/proxy.js" defer></script>
-    <script src="/assets/js/games.js" defer></script>
-</head>
-<body>
-    <div id="align">
-        <nav id="nav">
-            <a onclick="exit()">
-                <i class="fa-solid fa-xmark" style="color: white; margin-right: auto; margin-left: 20px; font-size: 24px; cursor: pointer;"></i>
-            </a>
-            <span id="m" style="margin: auto;"></span>
-            <a onclick="fullscreen()">
-                <i class="fa-solid fa-expand" style="color: white; margin-left: auto; margin-right: 45px; font-size: 20px; cursor: pointer;"></i>
-            </a>
-        </nav>
-        <iframe id="ifr"></iframe>
+<link href="/assets/css/games.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<div id="align">
+	<nav id="nav">
+		<a onclick="exit()">
+			<i class="fa-solid fa-xmark"
+				style="color: white; margin-right: auto; margin-left: 20px; font-size: 24px;cursor: pointer;"></i>
+		</a>
+		<span id="m" style="margin: auto;"></span>
+		<a onclick="fullscreen()">
+			<i class="fa-solid fa-expand"
+				style="color: white; margin-left: auto; margin-right: 45px; font-size: 20px;cursor: pointer;"></i>
+		</a>
+	</nav>
+	<iframe id="ifr"></iframe>
+</div>
+<style>
+	.fl {
+		font-family: 'Poppins';
+		font-size: 1.2rem;
+		margin-left: 2rem;
+		margin-top: 0.7rem;
+		display: block;
+		transition: all 0.3s;
+		transform: translateY(0);
+	}
+	#urlInput {
+		font-family: 'Poppins';
+		font-size: 1.2rem;
+		color: #fafafa;
+		margin: auto;
+		width: 80%;
+		padding: 10px;
+		height: 100%;
+	}
+	.btn {
+		font-family: 'Poppins';
+		font-size: 15px;
+		font-weight: 500;
+		padding: 5px 10px;
+		background-color: #fafafa;
+		color: #424244;
+		border: none;
+		border-radius: 10px;
+		box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+		cursor: pointer;
+		transition: all 0.3s ease-in-out;
+	}
+	.btn:hover {
+		background-color: #e2e2e2;
+		color: #424244;
+	}
+	.btnContainer {
+		display: inline-block;
+		border: 1px solid #27272a;
+		background-color: transparent;
+		padding: 10px;
+		border-radius: 10px;
+		width: 400px;
+		transition: all 0.2s ease-in-out;
+	}
+	.btnContainer:hover {
+		background-color: #27272a;
+	}
+	.btnContainer h4 {
+		color: #fafafa;
+		text-align: left;
+		margin-top: 5px;
+		margin-bottom: 5px;
+		font-weight: 500;
+	}
+	.btnBox {
+		align-items: center;
+		display: flex;
+		gap: 25px;
+		flex-wrap: wrap;
+		align-content: center;
+		justify-content: center;
+		margin-bottom: 30px;
+	}
+	.gameDescription {
+		color: grey;
+		font-size: 12px;
+	}
+	::-webkit-scrollbar {
+		width: 10px;
+	}
+
+	::-webkit-scrollbar-track {
+		background: #09090b;
+		border-radius: 10px;
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: #fafafa;
+		border-radius: 10px;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background: #acacac;
+	}
+	.tag {
+		background: linear-gradient(to right, #7e57c2, #039be5);
+		color: #fff;
+		font-size: 12px;
+		padding: 2px 6px;
+		border-radius: 5px;
+		position: relative;
+		top: -3px;
+		margin-left: 5px;
+	}
+	.hot {
+		background: linear-gradient(to right, #ff2525, #e57c03);
+		color: #fff;
+		font-size: 12px;
+		padding: 2px 6px;
+		border-radius: 5px;
+		position: relative;
+		top: -3px;
+		margin-left: 5px;
+	}
+</style>
+<div class="games-body">
+	<div id="urlInput">
+		<br>
+		<br>
+		<br>
+<h2 style="color: #fafafa; font-size: 60px; text-align: center; margin-bottom: 0px;">Emerald Apps</h2>
+<h3 style="color: #909098; font-size: 15px; text-align: center; margin-top: 5px; font-weight: 300;">Please find below a curated selection of apps available on Emerald:</h3>
+<h3 style="padding-bottom: 20px;"></h3>
+<div class="btnBox">
+	<div class="btnContainer">
+		<h4>Robloxk<span class="hot">Popular <i class="fa-solid fa-fire"></i></span></h4>
+		<p class="gameDescription">TikTok is a popular social media app where users can create and share short videos set to music. Discover trending videos, follow your favorite creators, and showcase your creativity.</p>
+		<button class="btn" data-href='https://https://websitesball.com/apps/tiktok/4478/tiktok.html'>Play</button>
+	</div>
+	
+	<div class="btnContainer">
+		<h4>Snapcht</h4>
+		<p class="gameDescription">Snapchat is a multimedia messaging app where users can send photos and videos that disappear after being viewed. It also offers various filters, lenses, and fun features for creative communication.</p>
+		<button class="btn" data-href='https://https://websitesball.com/apps/snap-inc/1230/snapchat.html'>Play</button>
+	</div>
+
+    <div class="btnContainer">
+        <h4>Facebook</h4>
+        <p class="gameDescription">Facebook is a social networking platform where users can connect with friends, share updates, photos, videos, and engage in various activities.</p>
+        <button class="btn" data-href='https://https://websitesball.com/apps/meta-platforms-inc/1226/facebook.html'>Play</button>
     </div>
-    
-    <div class="games-body">
-        <div id="urlInput">
-            <h2 style="color: #fafafa; font-size: 60px; text-align: center; margin-bottom: 0;">Emerald Games</h2>
-            <h3 style="color: #909098; font-size: 15px; text-align: center; margin-top: 5px; font-weight: 300;">Please find below a curated selection of games available on Emerald:</h3>
-            
-            <h2 style="color: #fafafa; font-size: 40px; text-align: center; margin-bottom: 0;">Vizion Enabled Games</h2>
-            <div class="btnBox">
-                <!-- List of games -->
-                <div class="btnContainer">
-                    <h4>Roblox <span class="hot">Popular <i class="fa-solid fa-fire"></i></span></h4>
-                    <p class="gameDescription">Roblox is an online platform that allows users to create and play games. It offers a wide variety of games created by other users, ranging from role-playing games to virtual worlds.</p>
-                    <button class="btn" data-href="https://websitesball.com/apps/roblox-corporation/5349/roblox.html" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>Android OS</h4>
-                    <p class="gameDescription">Android OS is an operating system used by millions of smartphones and tablets worldwide. While not a game itself, it powers a wide range of games and apps available on mobile devices.</p>
-                    <button class="btn" data-href="https://websitesball.com/play/uncube/7074/now" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>Stumble Guys</h4>
-                    <p class="gameDescription">Stumble Guys is a multiplayer party game where you compete against other players in various obstacle courses. The goal is to be the last one standing and reach the finish line.</p>
-                    <button class="btn" data-href="https://websitesball.com/play/kitka-games/7999/stumble-guys" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>Fortnite <span class="tag">New <i class="fa-solid fa-star"></i></span></h4>
-                    <p class="gameDescription">Fortnite is a popular battle royale game where players fight against each other in an ever-shrinking map. It also features a creative mode where players can build their own worlds and a cooperative mode where they can team up to complete missions.</p>
-                    <button class="btn" data-href="/apps/epic-games/7308/fortnite.html" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>COD Mobile</h4>
-                    <p class="gameDescription">COD Mobile is a mobile version of the popular Call of Duty franchise. It offers a variety of multiplayer game modes, including team deathmatch, battle royale, and zombies. Players can customize their loadouts and compete against other players online.</p>
-                    <button class="btn" data-href="https://websitesball.com/play/activision-publishing/7935/call-of-duty" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>PUBG</h4>
-                    <p class="gameDescription">PUBG (PlayerUnknown's Battlegrounds) is a battle royale game where players fight against each other in a large open-world environment. The goal is to be the last one standing by eliminating other players and surviving until the end.</p>
-                    <button class="btn" data-href="https://websitesball.com/play/proxima-beta/2609/pubg-mobile-resistance" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>Cookie Run</h4>
-                    <p class="gameDescription">Cookie Run is a fun and addictive endless runner game where you control a cute cookie character and try to run as far as possible while collecting coins and avoiding obstacles.</p>
-                    <button class="btn" data-href="https://websitesball.com/play/devsisters-corporation/3475/cookie-run" onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>Singing Monsters</h4>
-                    <p class="gameDescription">Singing Monsters is a unique musical game where you breed and collect adorable monsters that sing and create harmonious melodies. Discover new monster species and create your own musical paradise.</p>
-                    <button class="btn" data-href='https://websitesball.com/play/big-blue/8811/singing-monsters' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>Minecraft Trial</h4>
-                    <p class="gameDescription">Minecraft Trial is a free version of the popular sandbox game where you can explore, mine resources, and build your own virtual world. Experience the creative and survival modes in this limited trial version.</p>
-                    <button class="btn" data-href='https://websitesball.com/play/mojang/2534/minecraft-trial' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>Granny</h4>
-                    <p class="gameDescription">Granny is a horror game where you find yourself trapped in a haunted house. Your goal is to escape while avoiding Granny, a creepy old woman who can hear every noise you make.</p>
-                    <button class="btn" data-href='https://websitesball.com/play/dvloper/4807/granny' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>Among Us</h4>
-                    <p class="gameDescription">Among Us is a multiplayer game of teamwork and betrayal. Work together with other players to complete tasks on a spaceship, but be careful, as there are impostors among the crew who will try to eliminate everyone.</p>
-                    <button class="btn" data-href='https://websitesball.com/play/innersloth-llc/4047/among-us' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>Pixel Gun</h4>
-                    <p class="gameDescription">Pixel Gun is a fast-paced multiplayer shooter game with blocky graphics. Battle against players from around the world in various game modes, such as Team Deathmatch, Battle Royale, and Capture the Flag.</p>
-                    <button class="btn" data-href='https://websitesball.com/play/pixel-gun-3d/2652/pixel-gun' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>Animal Jam</h4>
-                    <p class="gameDescription">Animal Jam is an online virtual world where you can create and customize your own animal character and explore a vibrant and interactive environment. Play games, solve puzzles, and interact with other players.</p>
-                    <button class="btn" data-href='https://websitesball.com/play/national-geographic-society/9805/animal-jam' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>Google Snake</h4>
-                    <p class="gameDescription">Google's version of the classic Snake game. Navigate the snake to collect food while avoiding collisions with the walls and the snake's own tail.</p>
-                    <button class="btn" data-href='https://www.google.com/search?q=snake+game+google' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>Gartic Phone</h4>
-                    <p class="gameDescription">Gartic Phone is a fun and creative drawing game where players take turns drawing and guessing each other's drawings. The game creates hilarious and unexpected outcomes as the prompts and drawings evolve.</p>
-                    <button class="btn" data-href='https://websitesball.com/play/gartic/8977/gartic-phone' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>Paper.io 2</h4>
-                    <p class="gameDescription">Paper.io 2 is an addictive multiplayer game where you control a paper character and try to conquer territory on the map while avoiding other players. Expand your territory and become the largest player.</p>
-                    <button class="btn" data-href='https://websitesball.com/play/voodoo/4842/paper-io-2' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>Surviv.io</h4>
-                    <p class="gameDescription">Surviv.io is a top-down multiplayer battle royale game. Gather resources, find weapons, and fight against other players in a shrinking play area to be the last one standing.</p>
-                    <button class="btn" data-href='https://websitesball.com/play/surviv-io/5756/surviv-io' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>Survivor.io</h4>
-                    <p class="gameDescription">Survivor.io is a survival game where you fight against hordes of enemies and bosses. Collect weapons, upgrade your skills, and survive as long as possible.</p>
-                    <button class="btn" data-href='https://websitesball.com/play/superbox-inc/3438/survivor-io' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>JustBuild.LOL</h4>
-                    <p class="gameDescription">JustBuild.LOL is a building game where you can practice your building skills in a creative environment. Compete with other players to create the most impressive structures.</p>
-                    <button class="btn" data-href='https://websitesball.com/play/justbuild-lol/3501/justbuild-lol' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>Krunker</h4>
-                    <p class="gameDescription">Krunker is a first-person shooter game with pixelated graphics. Compete in various game modes and maps, and enjoy fast-paced multiplayer action.</p>
-                    <button class="btn" data-href='https://websitesball.com/play/yendis/2196/krunker' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>Little Alchemy</h4>
-                    <p class="gameDescription">Little Alchemy is a puzzle game where you combine elements to create new items. Discover all possible combinations and unlock new elements as you progress.</p>
-                    <button class="btn" data-href='https://websitesball.com/play/little-alchemy/9237/little-alchemy' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>WormsZone.io</h4>
-                    <p class="gameDescription">WormsZone.io is a multiplayer game where you control a worm and eat food to grow larger. Avoid other worms and try to become the biggest worm on the server.</p>
-                    <button class="btn" data-href='https://websitesball.com/play/wormszone-io/8434/wormszone-io' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>Drunken Duel</h4>
-                    <p class="gameDescription">Drunken Duel is a funny and chaotic multiplayer game where you battle against other players in a variety of drunken-themed mini-games.</p>
-                    <button class="btn" data-href='https://websitesball.com/play/jb-game-studio/3567/drunken-duel' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-                <div class="btnContainer">
-                    <h4>Run 3</h4>
-                    <p class="gameDescription">Run 3 is an endless runner game where you navigate a character through a series of challenging levels and obstacles. Test your reflexes and see how far you can run.</p>
-                    <button class="btn" data-href='https://websitesball.com/play/platonic-games/9494/run-3' onclick="window.open(this.getAttribute('data-href'), '_blank')">Play</button>
-                </div>
-            </div>
-        </div>
+
+    <div class="btnContainer">
+        <h4>Instagram</h4>
+        <p class="gameDescription">Instagram is a photo and video-sharing social networking service owned by Meta Platforms. Users can upload photos and videos, add captions, hashtags, and engage with others through likes, comments, and messages.</p>
+        <button class="btn" data-href='https://https://websitesball.com/apps/instagram/1228/instagram.html'>Play</button>
     </div>
-</body>
-</html>
+
+    <div class="btnContainer">
+        <h4>Twitter</h4>
+        <p class="gameDescription">Twitter is a microblogging and social networking platform where users can post and interact with messages known as "tweets." It's used for sharing news, thoughts, and engaging in discussions.</p>
+        <button class="btn" data-href='https://twitter.com'>Play</button>
+    </div>
+
+    <div class="btnContainer">
+        <h4>Discord</h4>
+        <p class="gameDescription">Discord is a communication platform designed for creating communities. It offers voice, video, and text communication channels, making it popular among gamers and various interest groups.</p>
+        <button class="btn" data-href='https://discord.com'>Play</button>
+    </div>
+
+    <div class="btnContainer">
+        <h4>YouTube</h4>
+        <p class="gameDescription">YouTube is a video-sharing platform where users can upload, view, and share videos. It features a wide range of content, including music videos, tutorials, vlogs, and entertainment.</p>
+        <button class="btn" data-href='https://youtube.com'>Play</button>
+    </div>
+
+
+    <div class="btnContainer">
+        <h4>Pinterest</h4>
+        <p class="gameDescription">Pinterest is a visual discovery engine for finding ideas and inspiration. Users can discover and save creative ideas, including recipes, home decor, fashion, and more.</p>
+        <button class="btn" data-href='https://pinterest.com'>Play</button>
+    </div>
+
+    <div class="btnContainer">
+        <h4>LinkedIn</h4>
+        <p class="gameDescription">LinkedIn is a professional networking platform where users can connect with colleagues, employers, and industry professionals. It's used for job searching, professional networking, and sharing industry insights.</p>
+        <button class="btn" data-href='https://linkedin.com'>Play</button>
+    </div>
+
+    <div class="btnContainer">
+        <h4>Reddit</h4>
+        <p class="gameDescription">Reddit is a social news aggregation, web content rating, and discussion website. Users can submit content, vote on posts and comments, and participate in various communities based on interests.</p>
+        <button class="btn" data-href='https://https://websitesball.com/apps/aptoide/5874/aptoide-2.html'>Play</button>
+    </div>
+
+    <div class="btnContainer">
+        <h4>Twitch</h4>
+        <p class="gameDescription">Twitch is a live streaming platform primarily focused on video games and esports. Users can watch live broadcasts, interact with streamers, and participate in chat discussions.</p>
+        <button class="btn" data-href='https://twitch.tv'>Play</button>
+    </div>
+
+    <div class="btnContainer">
+        <h4>Telegram</h4>
+        <p class="gameDescription">Telegram is a messaging app known for its speed and security features. Users can send messages, photos, videos, and files, as well as create channels and groups for communication.</p>
+        <button class="btn" data-href='https://telegram.org'>Play</button>
+    </div>
+
+    <div class="btnContainer">
+        <h4>WeChat</h4>
+        <p class="gameDescription">WeChat is a multipurpose messaging, social media, and mobile payment app developed by Tencent. It's widely used in China and offers features like messaging, voice and video calls, social networking, and more.</p>
+        <button class="btn" data-href='https://https://websitesball.com/apps/aptoide/5874/aptoide-2.html'>Play</button>
+    </div>
+
+    <div class="btnContainer">
+        <h4>Spotify</h4>
+        <p class="gameDescription">Spotify is a digital music streaming service that offers access to a vast library of songs, albums, and playlists. Users can listen to music online, create playlists, and discover new artists and genres.</p>
+        <button class="btn" data-href='https://open.spotify.com'>Play</button>
+    </div>
+
+	<div class="btnContainer">
+		<h4>Netflix</h4>
+		<p class="gameDescription">Netflix is a subscription-based streaming service offering a wide variety of TV shows, movies, documentaries, and more. Users can watch content on-demand across various devices.</p>
+		<button class="btn" data-href='https://netflix.com'>Play</button>
+	</div>
+	
+	<div class="btnContainer">
+		<h4>Amazon Prime Video</h4>
+		<p class="gameDescription">Amazon Prime Video is a subscription-based streaming service provided by Amazon. It offers a vast selection of TV shows, movies, and original content for streaming.</p>
+		<button class="btn" data-href='https://www.primevideo.com/'>Play</button>
+	</div>
+	
+	<div class="btnContainer">
+		<h4>Google Maps</h4>
+		<p class="gameDescription">Google Maps is a web mapping service offering satellite imagery, street maps, real-time traffic conditions, and route planning for navigation purposes.</p>
+		<button class="btn" data-href='https://maps.google.com'>Play</button>
+	</div>
+	
+	<div class="btnContainer">
+		<h4>Google Drive</h4>
+		<p class="gameDescription">Google Drive is a file storage and synchronization service provided by Google. Users can store files in the cloud, share files with others, and collaborate on documents, spreadsheets, and presentations.</p>
+		<button class="btn" data-href='https://drive.google.com'>Play</button>
+	</div>
+	
+	<div class="btnContainer">
+		<h4>Microsoft Office</h4>
+		<p class="gameDescription">Microsoft Office is a suite of productivity applications that includes programs like Word, Excel, PowerPoint, and Outlook. It's widely used for creating documents, spreadsheets, presentations, and managing emails.</p>
+		<button class="btn" data-href='https://www.office.com/'>Play</button>
+	</div>
+	
+	<div class="btnContainer">
+		<h4>Amazon Shopping</h4>
+		<p class="gameDescription">Amazon Shopping is an e-commerce platform where users can browse and purchase a wide range of products, including electronics, clothing, books, and more.</p>
+		<button class="btn" data-href='https://www.amazon.com'>Play</button>
+	</div>
+	
+	<div class="btnContainer">
+		<h4>Google Chrome</h4>
+		<p class="gameDescription">Google Chrome is a popular web browser developed by Google. It offers fast and secure web browsing, as well as various features like tab management, extensions, and sync across devices.</p>
+		<button class="btn" data-href='https://www.google.com/chrome'>Play</button>
+	</div>
+	
+	<div class="btnContainer">
+		<h4>Zoom</h4>
+		<p class="gameDescription">Zoom is a video conferencing and web conferencing platform used for remote communication, online meetings, webinars, and virtual events. It offers features like screen sharing, chat, and recording.</p>
+		<button class="btn" data-href='https://zoom.us'>Play</button>
+	</div>
+	
+	
+
+
+</div>
+</div>
+</div>
+</div>
+<script src="/assets/js/proxy.js"></script>
+<script src="/assets/js/games.js"></script>
