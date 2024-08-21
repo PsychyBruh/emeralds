@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchSelector = document.getElementById("se");
     const proxySelector = document.getElementById("proxy");
     const colorPicker = document.getElementById("colorPicker");
+    const backgroundUrlInput = document.getElementById("backgroundUrl");
+    const setBackgroundButton = document.getElementById("set-background");
 
     // Function to set the favicon (assuming this function is defined elsewhere)
     function setFavicon(url) {
@@ -41,15 +43,14 @@ document.addEventListener('DOMContentLoaded', () => {
         colorPicker.value = "#0b0b0b";
     }
 
-    // Function to toggle the Fortnite mode background
-    function setFortniteMode() {
-        const backgroundImageUrl = "https://i.ytimg.com/vi/6evDWowLMbE/maxresdefault.jpg";
-        if (localStorage.getItem("shuttle||fortniteMode") === "activated") {
-            document.body.style.backgroundImage = "";
-            localStorage.removeItem("shuttle||fortniteMode");
+    // Function to set the custom background URL
+    function setCustomBackground() {
+        const url = backgroundUrlInput.value.trim();
+        if (url) {
+            document.body.style.backgroundImage = `url("${url}")`;
+            localStorage.setItem("shuttle||backgroundUrl", url);
         } else {
-            document.body.style.backgroundImage = `url("${backgroundImageUrl}")`;
-            localStorage.setItem("shuttle||fortniteMode", "activated");
+            alert("Please enter a valid URL.");
         }
     }
 
@@ -72,6 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const proxyOption = findSel(proxySelector, savedProxy);
             if (proxyOption) proxyOption.selected = true;
         }
+
+        const savedBackgroundUrl = localStorage.getItem("shuttle||backgroundUrl");
+        if (savedBackgroundUrl) {
+            backgroundUrlInput.value = savedBackgroundUrl;
+            document.body.style.backgroundImage = `url("${savedBackgroundUrl}")`;
+        }
     }
 
     // Event listeners
@@ -87,7 +94,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector("#abc").addEventListener("click", () => {
         console.log("About:Blank Cloaking clicked");
     });
-    document.querySelector("#mystery-button").addEventListener("click", setFortniteMode);
+    document.querySelector("#mystery-button").addEventListener("click", () => {
+        document.body.style.backgroundImage = "";
+        localStorage.removeItem("shuttle||backgroundUrl");
+    });
+    setBackgroundButton.addEventListener("click", setCustomBackground);
 
     // Initialize settings on page load
     initializeSettings();
