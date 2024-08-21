@@ -1,192 +1,149 @@
-#align {
-    position: relative;
-    height: 100vh; /* Ensure it takes the full viewport height */
-    overflow: hidden; /* Hide overflow to manage scrolling manually */
-}
-
-.games-body {
-    padding: 20px; /* Add padding as needed */
-    overflow-y: scroll; /* Enable vertical scrolling */
-    max-height: calc(100vh - 60px); /* Adjust based on header size */
-}
-By checking these aspects, you should be able to identify why the new section and the rest of the content aren't displaying as expected. If you provide more details about what you see in the developer tools or any errors in the console, I can offer more specific help.
-
-
-
-You said:
-can you rewrite it with some adjustments
-ChatGPT said:
-ChatGPT
-Certainly! Here’s a revised version of your code with adjustments to ensure that the new section is visible, the content is scrollable, and the overall layout is managed effectively. I've made the following changes:
-
-Ensured proper CSS rules for scrolling and visibility.
-Corrected the HTML structure for clarity and proper nesting.
-Added comments for better understanding.
-Revised Code
-html
-Copy code
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/assets/css/games.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* Basic styling for the page layout */
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background-color: #121212; /* Dark background color for contrast */
-            color: #fafafa; /* Light text color for readability */
-            overflow: hidden; /* Hide overflow on the body to manage scrolling within specific elements */
-        }
-
-        #align {
-            position: relative;
-            height: 100vh; /* Full viewport height */
-            overflow: hidden; /* Hide overflow to manage scrolling manually */
-        }
-
-        #nav {
-            display: flex;
-            align-items: center;
-            background-color: #1f1f1f; /* Dark background for navigation */
-            padding: 10px;
-        }
-
-        #nav i {
-            color: white;
-            cursor: pointer;
-        }
-
-        #nav span {
-            flex: 1;
-            text-align: center;
-            color: #fafafa;
-        }
-
-        iframe {
-            width: 100%;
-            height: calc(100vh - 50px); /* Adjust height to account for the navigation bar */
-            border: none;
-        }
-
-        .games-body {
-            padding: 20px;
-            max-height: calc(100vh - 50px); /* Adjust based on header size */
-            overflow-y: auto; /* Enable vertical scrolling */
-        }
-
-        .btnContainer {
-            border: 1px solid #27272a;
-            background-color: transparent;
-            padding: 10px;
-            border-radius: 10px;
-            width: 400px;
-            margin: 10px auto; /* Center the container */
-            transition: background-color 0.2s ease-in-out;
-        }
-
-        .btnContainer:hover {
-            background-color: #27272a;
-        }
-
-        .btnContainer h4 {
-            color: #fafafa;
-            margin: 5px 0;
-            font-weight: 500;
-        }
-
-        .gameDescription {
-            color: grey;
-            font-size: 12px;
-        }
-
-        .btn {
-            font-size: 15px;
-            font-weight: 500;
-            padding: 5px 10px;
-            background-color: #fafafa;
-            color: #424244;
-            border: none;
-            border-radius: 10px;
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            transition: background-color 0.3s ease-in-out;
-        }
-
-        .btn:hover {
-            background-color: #e2e2e2;
-        }
-
-        .tag, .hot {
-            background: linear-gradient(to right, #7e57c2, #039be5);
-            color: #fff;
-            font-size: 12px;
-            padding: 2px 6px;
-            border-radius: 5px;
-            position: relative;
-            top: -3px;
-            margin-left: 5px;
-        }
-
-        .hot {
-            background: linear-gradient(to right, #ff2525, #e57c03);
-        }
-
-        /* Scrollbar styling */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #09090b;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #fafafa;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #acacac;
-        }
-    </style>
-</head>
-<body>
-    <div id="align">
-        <nav id="nav">
-            <a onclick="exit()">
-                <i class="fa-solid fa-xmark" style="font-size: 24px;"></i>
-            </a>
-            <span id="m">Emerald Games</span>
-            <a onclick="fullscreen()">
-                <i class="fa-solid fa-expand" style="font-size: 20px;"></i>
-            </a>
-        </nav>
-
-        <iframe id="ifr"></iframe>
-
-        <div class="games-body">
-            <div id="urlInput">
-                <h2 style="font-size: 60px; text-align: center; margin-bottom: 0;">Emerald Games</h2>
-                <h3 style="font-size: 15px; text-align: center; margin-top: 5px; font-weight: 300;">Please find below a curated selection of apps available on Emerald:</h3>
-                <h3 style="padding-bottom: 20px;"></h3>
-
-                <!-- New Section Start -->
-                <h2 style="font-size: 40px; text-align: center; margin-top: 40px; margin-bottom: 10px;">Vizion Enabled Games</h2>
-                <h3 style="font-size: 15px; text-align: center; font-weight: 300;">If you do NOT have vizion enabled these games will appear as blocked</h3>
-                <h3 style="padding-bottom: 20px;"></h3>
-                <!-- New Section End -->
-    </div>
+<link href="/assets/css/games.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<div id="align">
+	<nav id="nav">
+		<a onclick="exit()">
+			<i class="fa-solid fa-xmark"
+				style="color: white; margin-right: auto; margin-left: 20px; font-size: 24px;cursor: pointer;"></i>
+		</a>
+		<span id="m" style="margin: auto;"></span>
+		<a onclick="fullscreen()">
+			<i class="fa-solid fa-expand"
+				style="color: white; margin-left: auto; margin-right: 45px; font-size: 20px;cursor: pointer;"></i>
+		</a>
+	</nav>
+	<iframe id="ifr"></iframe>
 </div>
+<style>
+	.fl {
+		font-family: 'Poppins';
+		font-size: 1.2rem;
+		margin-left: 2rem;
+		margin-top: 0.7rem;
+		display: block;
+		transition: all 0.3s;
+		transform: translateY(0);
+	}
+	#urlInput {
+		font-family: 'Poppins';
+		font-size: 1.2rem;
+		color: #fafafa;
+		margin: auto;
+		width: 80%;
+		padding: 10px;
+		height: 100%;
+	}
+	.btn {
+		font-family: 'Poppins';
+		font-size: 15px;
+		font-weight: 500;
+		padding: 5px 10px;
+		background-color: #fafafa;
+		color: #424244;
+		border: none;
+		border-radius: 10px;
+		box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+		cursor: pointer;
+		transition: all 0.3s ease-in-out;
+	}
+	.btn:hover {
+		background-color: #e2e2e2;
+		color: #424244;
+	}
+	.btnContainer {
+		display: inline-block;
+		border: 1px solid #27272a;
+		background-color: transparent;
+		padding: 10px;
+		border-radius: 10px;
+		width: 400px;
+		transition: all 0.2s ease-in-out;
+	}
+	.btnContainer:hover {
+		background-color: #27272a;
+	}
+	.btnContainer h4 {
+		color: #fafafa;
+		text-align: left;
+		margin-top: 5px;
+		margin-bottom: 5px;
+		font-weight: 500;
+	}
+	.btnBox {
+		align-items: center;
+		display: flex;
+		gap: 25px;
+		flex-wrap: wrap;
+		align-content: center;
+		justify-content: center;
+		margin-bottom: 30px;
+	}
+	.gameDescription {
+		color: grey;
+		font-size: 12px;
+	}
+	::-webkit-scrollbar {
+		width: 10px;
+	}
+
+	::-webkit-scrollbar-track {
+		background: #09090b;
+		border-radius: 10px;
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: #fafafa;
+		border-radius: 10px;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background: #acacac;
+	}
+	.tag {
+		background: linear-gradient(to right, #7e57c2, #039be5);
+		color: #fff;
+		font-size: 12px;
+		padding: 2px 6px;
+		border-radius: 5px;
+		position: relative;
+		top: -3px;
+		margin-left: 5px;
+	}
+	.hot {
+		background: linear-gradient(to right, #ff2525, #e57c03);
+		color: #fff;
+		font-size: 12px;
+		padding: 2px 6px;
+		border-radius: 5px;
+		position: relative;
+		top: -3px;
+		margin-left: 5px;
+	}
+</style>
+<div class="games-body">
+	<div id="urlInput">
+		<br>
+		<br>
+		<br>
+<h2 style="color: #fafafa; font-size: 60px; text-align: center; margin-bottom: 0px;">Emerald Games</h2>
+<h3 style="color: #909098; font-size: 15px; text-align: center; margin-top: 5px; font-weight: 300;">Please find below a curated selection of Games available on Emerald:</h3>
+<h3 style="padding-bottom: 20px;"></h3>
+<div class="btnBox">
+
+<div class="games-body">
+	<div id="urlInput">
+		<br>
+		<br>
+		<br>
+<h2 style="color: #fafafa; font-size: 30px; text-align: center; margin-bottom: 0px;">Vizion Enabled Games</h2>
+<h3 style="color: #909098; font-size: 15px; text-align: center; margin-top: 5px; font-weight: 300;">If you do not have Vizion enabled these games WILL appear as blocked!</h3>
+<h3 style="padding-bottom: 20px;"></h3>
+<div class="btnBox">
 
 	<div class="btnContainer">
 		<h4>Roblox<span class="hot">Popular<i class="fa-solid fa-fire"></i></span></h4>
 		<p class="gameDescription">Roblox is an online platform that allows users to create and play games created by other users. It offers a wide variety of user-generated games across many genres, from adventure and role-playing to simulation and racing.</p>
-		<button class="btn" onclick="window.open(https://now.gg/apps/roblox-corporation/5349/roblox.html', '_blank')">Play</button>
+		<button class="btn" onclick="window.open('https://now.gg/apps/roblox-corporation/5349/roblox.html', '_blank')">Play</button>
 	</div>
 	
 	<div class="btnContainer">
@@ -204,31 +161,31 @@ Copy code
 	<div class="btnContainer">
 		<h4>Learn to fly</h4>
 		<p class="gameDescription">Learn to Fly is a physics-based game where players aim to fly as far as possible by upgrading their flying equipment and strategies through various attempts.</p>
-		<button class="btn" onclick="window.open('https://websitesball.com/apps/instagram/1228/instagram.html', '_blank')">Play</button>
+		<button class="btn" onclick="window.open('https://now.gg/apps/herocraft/1488/learn-2-fly.html', '_blank')">Play</button>
 	</div>
 	
 	<div class="btnContainer">
 		<h4>Getting Over it</h4>
 		<p class="gameDescription">Getting Over It with Bennett Foddy is a challenging platformer game where players must climb a mountain using a sledgehammer. The game is known for its difficulty and philosophical commentary.</p>
-		<button class="btn" onclick="window.open('https://twitter.com', '_blank')">Play</button>
+		<button class="btn" onclick="window.open('https://now.gg/apps/griffpatch/51293/getting-over-it.html', '_blank')">Play</button>
 	</div>
 	
 	<div class="btnContainer">
 		<h4>Vex 4</h4>
 		<p class="gameDescription">Vex 4 is a platformer game featuring fast-paced gameplay, challenging obstacles, and precise controls. Players navigate through various levels filled with traps and puzzles.</p>
-		<button class="btn" onclick="window.open('https://discord.com', '_blank')">Play</button>
+		<button class="btn" onclick="window.open('https://now.gg/apps/azerion-casual-games/51027/vex-4.html', '_blank')">Play</button>
 	</div>
 	
 	<div class="btnContainer">
 		<h4>Uphill Racing 2</h4>
 		<p class="gameDescription">Uphill Racing 2 is a racing game where players drive vehicles across challenging terrains, including steep hills and rough landscapes, aiming to finish each level as quickly as possible.</p>
-		<button class="btn" onclick="window.open('https://youtube.com', '_blank')">Play</button>
+		<button class="btn" onclick="window.open('https://now.gg/apps/agame/51320/up-hill-racing-2.html', '_blank')">Play</button>
 	</div>
 	
 	<div class="btnContainer">
 		<h4>Top Speed Racing 3D</h4>
 		<p class="gameDescription">Top Speed Racing 3D is a racing game that focuses on high-speed driving and thrilling racing experiences in 3D environments, featuring various cars and tracks.</p>
-		<button class="btn" onclick="window.open('https://pinterest.com', '_blank')">Play</button>
+		<button class="btn" onclick="window.open('https://now.gg/apps/great-games/51045/top-speed-racing-3d.html', '_blank')">Play</button>
 	</div>
 	
 	<div class="btnContainer">
