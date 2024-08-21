@@ -4,21 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open HTML</title>
+    <style>
+        /* Define the Nexa Heavy font */
+        @font-face {
+            font-family: 'Nexa Heavy';
+            src: url('fonts/Nexa-Heavy.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* Style the loading message */
+        #loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 32px; /* Set font size to 32px */
+            font-family: 'Nexa Heavy', Arial, sans-serif;
+            color: white; /* Set text color to white */
+            padding: 10px; /* Add some padding for better readability */
+            border-radius: 5px; /* Add rounded corners */
+            text-align: center; /* Center text horizontally */
+        }
+    </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Display the loading message
+            var loadingMessage = document.getElementById('loading');
+            loadingMessage.style.display = 'block';
+
+            // Retrieve the user's color choice from localStorage or default to a color
+            var userColor = localStorage.getItem('shuttle||themehex') || '#121212';
+            loadingMessage.style.backgroundColor = userColor;
+
             // Specify the URL of the HTML file you want to open
             var url = 'vizion.html'; // Change this to the path of the HTML file you want to open
-            
-            // Open the URL in a new tab
-            var newTab = window.open(url, '_blank');
-            if (newTab) {
-                newTab.focus();
-            } else {
-                console.error('Failed to open new tab. It might be blocked by a popup blocker.');
-            }
+
+            // Generate a random delay between 1 and 10 seconds
+            var delay = Math.floor(Math.random() * 10000) + 1000; // Delay in milliseconds
+
+            // Set a timeout to open the URL after the random delay
+            setTimeout(function() {
+                // Hide the loading message
+                loadingMessage.style.display = 'none';
+
+                // Open the URL in a new tab
+                var newTab = window.open(url, '_blank');
+                if (newTab) {
+                    newTab.focus();
+                } else {
+                    console.error('Failed to open new tab. It might be blocked by a popup blocker.');
+                }
+            }, delay);
         });
     </script>
 </head>
 <body>
+    <div id="loading" style="display: none;">Loading...</div>
 </body>
 </html>
