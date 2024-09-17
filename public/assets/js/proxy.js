@@ -16,7 +16,7 @@ aiptag.cmd.player.push(function() {
 		AD_WIDTH: 960,
 		AD_HEIGHT: 540,
 		AD_DISPLAY: 'fullscreen', //default, fullscreen, fill, center, modal-center
-		LOADING_TEXT: 'Loading EMERALD AD',
+		LOADING_TEXT: 'Loading Emerald AD',
 		PREROLL_ELEM: function(){return document.getElementById('videoad')},
 		AIP_COMPLETE: function (state)  {
 			/*******************
@@ -64,7 +64,7 @@ function isUrl(val = "") {
 function resolveURL(url) {
 	switch(localStorage.getItem("shuttle||proxy")) {
 		case "dy": 
-			return "/emerald-dn/" + Ultraviolet.codec.xor.decode(url);
+			return "/shuttle-dn/" + Ultraviolet.codec.xor.decode(url);
 		default:
 		case "uv":
 			return  __uv$config.prefix + __uv$config.encodeUrl(url);
